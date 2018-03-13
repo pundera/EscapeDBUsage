@@ -48,6 +48,42 @@ namespace EscapeDBUsage.Helpers
             }
         }
 
+        public static void RefreshTableColumns(IEventAggregator evAgg, NodeBase root, ref ObservableCollection<NodeDbTableColumnsToExcel> nodes)
+        {
+            var newRoot = new NodeDbTableColumnRoot(evAgg)
+            {
+                Nodes = new ObservableCollection<NodeDbTableColumnsToExcel>()
+            };
+
+            nodes = newRoot.Nodes;
+
+            List<NodeBase> allColumns = new List<NodeBase>();
+            GetColumns<NodeBase>(root, node => node.GetNodes(), ref allColumns);
+
+            var distinctTableColumns = allColumns.GroupBy(g => new { (g as NodeDbColumn).DBColumnName, (g as NodeDbColumn).NodeDbTable.Name }).Select(g => g.First()).ToList();
+            var orderedTableColumns = distinctTableColumns.OrderBy((x) => (x as NodeDbColumn).NodeDbTable.Name?.ToUpperInvariant() + " - " + (x as NodeDbColumn).DBColumnName?.ToUpperInvariant()).ToList();
+
+            nodes = new ObservableCollection<NodeDbTableColumnsToExcel>(orderedTableColumns.Select((x) => new NodeDbTableColumnsToExcel(evAgg) { Name = (x as NodeDbColumn).NodeDbTable.Name?.ToUpperInvariant() + " - " + (x as NodeDbColumn).DBColumnName?.ToUpperInvariant(), Description = x.Description, Nodes = new ObservableCollection<NodeDbTableColumnsToExcelToTab>() }).ToList());
+
+            var allExcels = (root as NodeRoot).Nodes;
+
+            foreach (var node in nodes) // COLUMNS
+            {
+                foreach (var table in allColumns) // ALLCOLUMNS
+                {
+                    foreach (var rootEx in allExcels)
+                    {
+                        if (!node.Nodes.Any(x => x.Name.Equals(rootEx.Name)))
+                        {
+                            var newExcel = new NodeDbTableColumnsToExcelToTab(evAgg) { Name = rootEx.Name, Description = rootEx.Description };
+                            newExcel.Nodes = new ObservableCollection<NodeTab>(rootEx.Nodes.ToList().Where(x => x.Nodes.Any(y => y.Name.Equals(node.Name))).ToList());
+                            node.Nodes.Add(newExcel);
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the collection of leafs (items that have no children) from a hierarchical collection
         /// </summary>
@@ -87,5 +123,20 @@ namespace EscapeDBUsage.Helpers
                 foreach (var n in getChildren(source)) GetTables<T>(n, getChildren, ref result);
             }
         }
+
+        private static void GetColumns<T>(T source, Func<T, IEnumerable<T>> getChildren, ref List<T> result)
+        {
+            if (result == null) result = new List<T>();
+            if (source is NodeDbColumn)
+            {
+                result.Add(source);
+                return;
+            }
+            else
+            {
+                foreach (var n in getChildren(source)) GetColumns<T>(n, getChildren, ref result);
+            }
+        }
     }
+
 }

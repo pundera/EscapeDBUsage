@@ -79,6 +79,7 @@ namespace EscapeDBUsage.ViewModels
             Save = new DelegateCommand(() => DoSave());
             Load = new DelegateCommand(() => DoLoad());
             Refresh = new DelegateCommand(() => DoRefresh());
+            RefreshColumns = new DelegateCommand(() => DoRefreshColumns());
 
             ExpandAll = new DelegateCommand(() => DoExpandAll());
             CollapseAll = new DelegateCommand(() => DoCollapseAll());
@@ -92,6 +93,13 @@ namespace EscapeDBUsage.ViewModels
             var list = NodesTable = new ObservableCollection<NodeDbTableToExcel>();
             RefreshHelper.RefreshTables(eventAgg, root, ref list);
             NodesTable = list;
+        }
+
+        private void DoRefreshColumns()
+        {
+            var list = NodesTableColumns = new ObservableCollection<NodeDbTableColumnsToExcel>();
+            RefreshHelper.RefreshTableColumns(eventAgg, root, ref list);
+            NodesTableColumns = list;
         }
 
         private void DoSave()
@@ -247,7 +255,7 @@ namespace EscapeDBUsage.ViewModels
                         }
                         else
                         {
-                            var column = new NodeDbColumn(eventAgg, dbTable) { Name = (l.Substring(0, l.IndexOf('-') - 1)), Description = l.Substring(l.IndexOf('-') + 2) };
+                            var column = new NodeDbColumn(eventAgg, dbTable) { Name = (l.Substring(0, l.IndexOf('-') - 1)), DBColumnName = (l.Substring(0, l.IndexOf('-') - 1)).Replace(" ", "_").ToUpperInvariant(), Description = l.Substring(l.IndexOf('-') + 2) };
                             if (tab.Nodes[0].Nodes == null)
                             {
                                 tab.Nodes[0].Nodes = new ObservableCollection<NodeDbColumn>();
@@ -265,7 +273,8 @@ namespace EscapeDBUsage.ViewModels
         public ICommand Import { get; private set; }
         public ICommand Save { get; private set; }
         public ICommand Load { get; private set; }
-        public DelegateCommand Refresh { get; private set; }
+        public ICommand Refresh { get; private set; }
+        public ICommand RefreshColumns { get; private set; }
         public ICommand ExpandAll { get; private set; }
         public ICommand CollapseAll { get; private set; }
 
@@ -405,6 +414,9 @@ namespace EscapeDBUsage.ViewModels
 
         private ObservableCollection<NodeDbTableToExcel> nodesTable;
         public ObservableCollection<NodeDbTableToExcel> NodesTable { get { return nodesTable; } set { SetProperty(ref nodesTable, value); } }
+
+        private ObservableCollection<NodeDbTableColumnsToExcel> nodesTableColumns;
+        public ObservableCollection<NodeDbTableColumnsToExcel> NodesTableColumns { get { return nodesTableColumns; } set { SetProperty(ref nodesTableColumns, value); } }
     }
 
     public enum FilterType

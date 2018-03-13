@@ -92,9 +92,12 @@
     <Compile Include="UIClasses\NodeExcel.cs" />
     <Compile Include="UIClasses\NodeRoot.cs" />
     <Compile Include="UIClasses\NodeTab.cs" />
+    <Compile Include="UIClasses\OtherViews\NodeDbTableColumnRoot.cs" />
+    <Compile Include="UIClasses\OtherViews\NodeDbTableColumnsToExcelToTab.cs" />
+    <Compile Include="UIClasses\OtherViews\NodeDbTableColumnsToExcel.cs" />
     <Compile Include="UIClasses\OtherViews\NodeDbTableRoot.cs" />
     <Compile Include="UIClasses\OtherViews\NodeDbTableToExcel.cs" />
-    <Compile Include="UIClasses\OtherViews\NodeDbTableToExcelToDbColumn.cs" />
+    <Compile Include="UIClasses\OtherViews\NodeDbTableToExcelToTab.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\ExcelView.xaml.cs">

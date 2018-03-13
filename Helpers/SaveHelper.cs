@@ -40,7 +40,7 @@ namespace EscapeDBUsage.Helpers
                         if (table.Nodes == null) continue;
                         foreach (var column in table.Nodes)
                         {
-                            var dbColumn = new DbColumn() { Name = column.Name, Description = column.Description };
+                            var dbColumn = new DbColumn() { DbColumnName = column.DBColumnName, Name = column.Name, Description = column.Description };
                             dbTable.Nodes.Add(dbColumn);
                         }
 

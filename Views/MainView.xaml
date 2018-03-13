@@ -152,8 +152,10 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="\Images\table.png"/>
                     </StackPanel>
-                    <TextBlock Text="{Binding Path=Name}" Width="Auto" />
-                    <TextBlock Text="{Binding Path=Description}" Width="Auto" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
             <HierarchicalDataTemplate.ItemTemplate>
@@ -171,8 +173,8 @@
                                 <Image Source="\Images\excel.png"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Path=Name}" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="Auto" />
+                                <TextBlock Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -183,8 +185,8 @@
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="\Images\tab.png"/>
                                     </StackPanel>
-                                    <TextBlock Margin="4,0" Text="{Binding Path=Name}" FontWeight="Bold" Width="Auto" />
-                                    <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="Auto" />
+                                    <TextBlock Margin="4,0" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -193,6 +195,69 @@
             </HierarchicalDataTemplate.ItemTemplate>
         </HierarchicalDataTemplate>
         <!-- END of TABLE -->
+
+        <!-- TABLE-COLUMNS -->
+        <HierarchicalDataTemplate x:Key="TreeTemplateTableColumn" DataType="{x:Type otherviews:NodeDbTableColumnsToExcel}" ItemsSource="{Binding Nodes}">
+            <HierarchicalDataTemplate.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </HierarchicalDataTemplate.ItemContainerStyle>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Images\column.png"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <HierarchicalDataTemplate.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type otherviews:NodeDbTableColumnsToExcel}" ItemsSource="{Binding Nodes}">
+                    <HierarchicalDataTemplate.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                            <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </HierarchicalDataTemplate.ItemContainerStyle>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="\Images\excel.png"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate DataType="{x:Type otherviews:NodeDbTableColumnsToExcelToTab}" >
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="\Images\tab.png"/>
+                                    </StackPanel>
+                                    <TextBlock Margin="4,0" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </HierarchicalDataTemplate.ItemTemplate>
+        </HierarchicalDataTemplate>
+        <!-- END of TABLE-COLUMNS -->
+
+
+
+
+
     </UserControl.Resources>
     <Grid>
         <TabControl>
@@ -353,7 +418,7 @@
                             </Button.Content>
                         </Button>
                     </StackPanel>
-                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" >
+                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="750" >
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -375,9 +440,27 @@
                         </Label.Content>
                     </Label>
                 </TabItem.Header>
-                <TreeView>
-
-                </TreeView>
+                <Grid>
+                    <StackPanel Orientation="Horizontal" Margin="0" Height="50" VerticalAlignment="Top">
+                        <Button Margin="4,2" Padding="4,4" Command="{Binding RefreshColumns}" Background="Transparent">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="\Images\refresh.png" />
+                                    <Label Content="Create Specific Tree View... (COLUMNS)!" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTableColumn}" ItemsSource="{Binding NodesTableColumns}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="750" >
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </TreeView>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

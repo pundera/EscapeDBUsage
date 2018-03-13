@@ -51,7 +51,7 @@ namespace EscapeDBUsage.Helpers
                             if (table.Nodes == null) continue;
                             foreach (var c in table.Nodes)
                             {
-                                var nc = new NodeDbColumn(evAgg, ntable) { Name = c.Name, Description = c.Description };
+                                var nc = new NodeDbColumn(evAgg, ntable) { DBColumnName = c.DbColumnName, Name = c.Name, Description = c.Description };
                                 ntable.Nodes.Add(nc);
                             }
                         }
