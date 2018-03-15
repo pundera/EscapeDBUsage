@@ -52,7 +52,7 @@ namespace EscapeDBUsage.Helpers
                 foreach (var s in rr.List)
                 {
                     var nodeRoot = new NodeRoot(evAgg);
-                    sprints.Add(new UISprint(sprints) { Guid = s.Guid , Number = s.Number, Name = s.Name, Root = nodeRoot, Version = s.Version });
+                    sprints.Add(new UISprint(evAgg, sprints, nodeRoot) { Guid = s.Guid , Number = s.Number, Name = s.Name, Version = s.Version });
 
                     var result = new ObservableCollection<NodeExcel>();
                     nodeRoot.Nodes = result;

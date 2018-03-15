@@ -4,6 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EscapeDBUsage.Views"
+             
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:prism="http://prismlibrary.com/"
+             
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="0,0,0,0">
@@ -25,6 +29,11 @@
                             <Button Margin="6" Padding="8" Background="LightPink" Content="[-] Remove" Command="{Binding RemoveSprint}" />
                             <Button Margin="2" Padding="2" Background="LightPink" Command="{Binding CopySprint}" >
                                 <Image Source="/EscapeDBUsage;component/Images/copy-sprint.png" />
+                                <i:Interaction.Triggers>
+                                    <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
+                                        <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+                                    </prism:InteractionRequestTrigger>
+                                </i:Interaction.Triggers>
                             </Button>
                         </StackPanel>
                     </StackPanel>

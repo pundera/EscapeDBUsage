@@ -86,10 +86,18 @@ namespace EscapeDBUsage.ViewModels
 
             SaveSprints = new DelegateCommand(() => DoSaveSprints());
 
+            AddExcel = new DelegateCommand(() => DoAddExcel());
+
             Task.Run(() =>
             {
                 DoLoad();
             });
+        }
+
+        private void DoAddExcel()
+        {
+            var newExcel = new NodeExcel(eventAgg, root); 
+            NodesExcel.Add(newExcel);
         }
 
         private void DoSaveSprints()
@@ -108,7 +116,7 @@ namespace EscapeDBUsage.ViewModels
                 {
                     root = selectedSprint.Root;
                     NodesExcel = selectedSprint.Root.Nodes;
-                    SelectedExcel = NodesExcel.First();
+                    if (NodesExcel!=null && NodesExcel.Count>0) SelectedExcel = NodesExcel.First();
                 }
             }
         }
@@ -311,6 +319,9 @@ namespace EscapeDBUsage.ViewModels
         public ICommand CollapseAll { get; private set; }
 
         public ICommand SaveSprints { get; private set; }
+
+        //AddExcel
+        public ICommand AddExcel { get; private set; }
 
         private void DoExpandAll()
         {

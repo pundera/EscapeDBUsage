@@ -146,6 +146,9 @@
       <Version>11.0.1</Version>
     </PackageReference>
     <PackageReference Include="Prism.Autofac" Version="6.3.0" />
+    <PackageReference Include="System.Windows.Interactivity.WPF">
+      <Version>2.0.20525</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\hearts.ico" />

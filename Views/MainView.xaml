@@ -335,6 +335,12 @@
                                 <Label Content="Collapse All" />
                             </StackPanel>
                         </Button>
+                        <Button Margin="24,2" Padding="4,4" Command="{Binding AddExcel}" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="\Images\excel.png"/>
+                                <Label Content="Add Excel" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,55,0,0" Height="40" VerticalAlignment="Top">

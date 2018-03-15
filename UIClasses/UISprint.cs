@@ -1,4 +1,6 @@
 ﻿using Prism.Commands;
+using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,18 +14,25 @@ namespace EscapeDBUsage.UIClasses
 {
     public class UISprint: BindableBase
     {
-        public UISprint(ObservableCollection<UISprint> sprints)
+        public UISprint(IEventAggregator evAgg, ObservableCollection<UISprint> sprints, NodeRoot root)
         {
+            EvAgg = evAgg;
+            Root = root;
             Sprints = sprints;
             InsertSprint = new DelegateCommand(() => DoInsertSprint());
             RemoveSprint = new DelegateCommand(() => DoRemoveSprint());
             CopySprint = new DelegateCommand(() => DoCopySprint());
 
+            this.ConfirmationRequest = new InteractionRequest<IConfirmation>();
+
         }
 
+        public IEventAggregator EvAgg { get; private set; }
         public ICommand InsertSprint { get; private set; }
         public ICommand RemoveSprint { get; private set; }
         public ICommand CopySprint { get; private set; }
+
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; }
 
         public ObservableCollection<UISprint> Sprints { get; private set; }
 
@@ -31,7 +40,9 @@ namespace EscapeDBUsage.UIClasses
 
         private void DoCopySprint()
         {
-            if (Sprints.Count > Sprints.IndexOf(this) + 1) Sprints[Sprints.IndexOf(this) + 1].Root = this.Root.Copy();
+            this.ConfirmationRequest.Raise(
+                    new Confirmation { Content = "Are you sure to COPY all data from one Sprint to another?", Title = "Confirmation - COPY!" },
+                        c => { if (c.Confirmed) if (Sprints.Count > Sprints.IndexOf(this) + 1) Sprints[Sprints.IndexOf(this) + 1].Root = this.Root.Copy(); });
         }
 
         private void DoRemoveSprint()
@@ -41,7 +52,7 @@ namespace EscapeDBUsage.UIClasses
 
         private void DoInsertSprint()
         {
-            Sprints.Insert(Sprints.IndexOf(this)+1, new UISprint(Sprints) { Name = "NAME", Number = 99, Version = "9.9.9.9" });
+            Sprints.Insert(Sprints.IndexOf(this)+1, new UISprint(EvAgg, Sprints, new NodeRoot(EvAgg)) { Name = "NAME", Number = 99, Version = "9.9.9.9" });
         }
 
         private Guid guid;
