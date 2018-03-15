@@ -61,9 +61,16 @@ namespace EscapeDBUsage.Helpers
             GetColumns<NodeBase>(root, node => node.GetNodes(), ref allColumns);
 
             var distinctTableColumns = allColumns.GroupBy(g => new { (g as NodeDbColumn).DBColumnName, (g as NodeDbColumn).NodeDbTable.Name }).Select(g => g.First()).ToList();
-            var orderedTableColumns = distinctTableColumns.OrderBy((x) => (x as NodeDbColumn).NodeDbTable.Name?.ToUpperInvariant() + " - " + (x as NodeDbColumn).DBColumnName?.ToUpperInvariant()).ToList();
+            var orderedTableColumns = distinctTableColumns.OrderBy(
+                (x) => 
+                string.Format("{0} - {1}", (x as NodeDbColumn).NodeDbTable.Name, (x as NodeDbColumn).DBColumnName
+                )
+            ).ToList();
 
-            nodes = new ObservableCollection<NodeDbTableColumnsToExcel>(orderedTableColumns.Select((x) => new NodeDbTableColumnsToExcel(evAgg) { Name = (x as NodeDbColumn).NodeDbTable.Name?.ToUpperInvariant() + " - " + (x as NodeDbColumn).DBColumnName?.ToUpperInvariant(), Description = x.Description, Nodes = new ObservableCollection<NodeDbTableColumnsToExcelToTab>() }).ToList());
+            nodes = new ObservableCollection<NodeDbTableColumnsToExcel>(orderedTableColumns.Select((x) => new NodeDbTableColumnsToExcel(evAgg) {
+                Name = string.Format("{0} - {1}", (x as NodeDbColumn).NodeDbTable.Name, (x as NodeDbColumn).DBColumnName),
+                Description = x.Description,
+                Nodes = new ObservableCollection<NodeDbTableColumnsToExcelToTab>() }).ToList());
 
             var allExcels = (root as NodeRoot).Nodes;
 
@@ -76,7 +83,14 @@ namespace EscapeDBUsage.Helpers
                         if (!node.Nodes.Any(x => x.Name.Equals(rootEx.Name)))
                         {
                             var newExcel = new NodeDbTableColumnsToExcelToTab(evAgg) { Name = rootEx.Name, Description = rootEx.Description };
-                            newExcel.Nodes = new ObservableCollection<NodeTab>(rootEx.Nodes.ToList().Where(x => x.Nodes.Any(y => y.Name.Equals(node.Name))).ToList());
+                            newExcel.Nodes = new ObservableCollection<NodeTab>(
+                                rootEx.Nodes.ToList()
+                                    .Where(x => x.Nodes.Any(y =>
+                                        y.Nodes.Any(z =>
+                                            node.Name == string.Format("{0} - {1}", z.NodeDbTable.Name, z.DBColumnName)
+                                            )
+                                            )
+                                    ).ToList());
                             node.Nodes.Add(newExcel);
                         }
                     }
@@ -113,6 +127,12 @@ namespace EscapeDBUsage.Helpers
         private static void GetTables<T>(T source, Func<T, IEnumerable<T>> getChildren, ref List<T> result)
         {
             if (result == null) result = new List<T>();
+
+            if (source==null)
+            {
+                return;
+            }
+
             if (source is NodeDbTable)
             {
                 result.Add(source);
@@ -127,6 +147,13 @@ namespace EscapeDBUsage.Helpers
         private static void GetColumns<T>(T source, Func<T, IEnumerable<T>> getChildren, ref List<T> result)
         {
             if (result == null) result = new List<T>();
+
+
+            if (source == null)
+            {
+                return;
+            }
+
             if (source is NodeDbColumn)
             {
                 result.Add(source);

@@ -3,6 +3,7 @@ using EscapeDBUsage.UIClasses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -49,12 +50,69 @@ namespace EscapeDBUsage.Helpers
             }
 
             var exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            var dataPath = $"{exePath}\\Data";
+            var dataPath = string.Format("{0}\\Data", exePath);
 
-            var data = $"{dataPath}\\data.json";
+            var data = string.Format("{0}\\data.json", dataPath);
 
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
 
+            var fi = new FileInfo(data);
+
+            using (var stream = fi.CreateText())
+            {
+                stream.Write(json);
+            }
+
+            return true;
+        }
+
+        internal static bool SaveSprints(ObservableCollection<UISprint> sprints)
+        {
+            var newSprints = new Sprints()
+            {
+                List = sprints.Select(x => new Sprint()
+                {
+                    Guid = x.Guid.Equals(Guid.Empty) ? Guid.NewGuid() : x.Guid,
+                    Number = x.Number,
+                    Name = x.Name,
+                    Version = x.Version,
+                    Excels = x.Root.Nodes != null ? x.Root.Nodes.Select(e =>
+                          new Excel()
+                          {
+                              Name = e.Name,
+                              Description = e.Description,
+                              Nodes = e.Nodes != null ? e.Nodes.Select(tab =>
+                                  new Tab()
+                                  {
+                                      Name = tab.Name,
+                                      Description = tab.Description,
+                                      Nodes = tab.Nodes != null ? tab.Nodes.Select(table =>
+                                          new DbTable()
+                                          {
+                                              Name = table.Name,
+                                              Description = table.Description,
+                                              Nodes = table.Nodes != null ? table.Nodes.Select(column =>
+                                              new DbColumn()
+                                              {
+                                                  Name = column.Name,
+                                                  Description = column.Description,
+                                                  DbColumnName = column.DBColumnName
+                                              }
+                                              ).ToList() : new List<DbColumn>()
+                                          }
+                                      ).ToList() : new List<DbTable>()
+                                  }
+                              ).ToList() : new List<Tab>()
+                          }
+                    ).ToList() : new List<Excel>()
+                }).ToList()
+            };
+
+            var exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            var dataPath = string.Format("{0}\\Data", exePath);
+            var data = string.Format("{0}\\sprints.json", dataPath);
+
+            var json = JsonConvert.SerializeObject(newSprints, Formatting.Indented);
             var fi = new FileInfo(data);
 
             using (var stream = fi.CreateText())

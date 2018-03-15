@@ -59,10 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\ExcelView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Views\SprintsView.xaml.cs">
+      <DependentUpon>SprintsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +84,8 @@
     <Compile Include="ModelClasses\DbColumn.cs" />
     <Compile Include="ModelClasses\DbTable.cs" />
     <Compile Include="ModelClasses\Excel.cs" />
+    <Compile Include="ModelClasses\Sprint.cs" />
+    <Compile Include="ModelClasses\Sprints.cs" />
     <Compile Include="ModelClasses\Tab.cs" />
     <Compile Include="UIClasses\NodeBase.cs" />
     <Compile Include="UIClasses\NodeDbColumn.cs" />
@@ -98,11 +99,9 @@
     <Compile Include="UIClasses\OtherViews\NodeDbTableRoot.cs" />
     <Compile Include="UIClasses\OtherViews\NodeDbTableToExcel.cs" />
     <Compile Include="UIClasses\OtherViews\NodeDbTableToExcelToTab.cs" />
+    <Compile Include="UIClasses\UISprint.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\ExcelView.xaml.cs">
-      <DependentUpon>ExcelView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -110,6 +109,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SprintsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -130,6 +133,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Data\data.json" />
+    <None Include="Data\sprints.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -195,6 +201,12 @@
   <ItemGroup>
     <Resource Include="Images\collapse-all.png" />
     <Resource Include="Images\expand-all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sprints.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\copy-sprint.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

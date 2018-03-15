@@ -83,6 +83,34 @@ namespace EscapeDBUsage.ViewModels
 
             ExpandAll = new DelegateCommand(() => DoExpandAll());
             CollapseAll = new DelegateCommand(() => DoCollapseAll());
+
+            SaveSprints = new DelegateCommand(() => DoSaveSprints());
+
+            Task.Run(() =>
+            {
+                DoLoad();
+            });
+        }
+
+        private void DoSaveSprints()
+        {
+            var b = SaveHelper.SaveSprints(Sprints);
+        }
+
+        private UISprint selectedSprint;
+        public UISprint SelectedSprint
+        {
+            get { return selectedSprint; }
+            set
+            {
+                SetProperty(ref selectedSprint, value);
+                if (selectedSprint != null)
+                {
+                    root = selectedSprint.Root;
+                    NodesExcel = selectedSprint.Root.Nodes;
+                    SelectedExcel = NodesExcel.First();
+                }
+            }
         }
 
         private NodeDbTableRoot rootTables;
@@ -104,16 +132,20 @@ namespace EscapeDBUsage.ViewModels
 
         private void DoSave()
         {
-            var b = SaveHelper.Save(NodesExcel);
+            var b = SaveHelper.SaveSprints(Sprints);
         }
 
         private void DoLoad()
         {
-            var list = nodesExcel = new ObservableCollection<NodeExcel>();
-            root = new NodeRoot(eventAgg) { Name = "ROOT", Description = "just help instance (node)..." };
-            LoadHelper.Load(ref list, eventAgg);
-            NodesExcel = list;
-            root.Nodes = NodesExcel;
+            //var list = nodesExcel = new ObservableCollection<NodeExcel>();
+            var listOfSprints = new ObservableCollection<UISprint>();
+
+            //root = new NodeRoot(eventAgg) { Name = "ROOT", Description = "just help instance (node)..." };
+            LoadHelper.Load(ref listOfSprints, eventAgg);
+            //NodesExcel = list;
+            //root.Nodes = NodesExcel;
+            Sprints = listOfSprints;
+            SelectedSprint = listOfSprints.Last();
         }
 
         private bool excelVisible;
@@ -201,10 +233,10 @@ namespace EscapeDBUsage.ViewModels
         private void DoImport()
         {
             var exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            var dataPath = $"{exePath}\\Data";
+            var dataPath = string.Format("{0}\\Data", exePath);
 
-            var data = $"{dataPath}\\data.json";
-            var guide = $"{dataPath}\\guide.txt";
+            var data = string.Format("{0}\\data.json", dataPath);
+            var guide = string.Format("{0}\\guide.txt", dataPath);
 
             var fi = new FileInfo(guide);
 
@@ -277,6 +309,8 @@ namespace EscapeDBUsage.ViewModels
         public ICommand RefreshColumns { get; private set; }
         public ICommand ExpandAll { get; private set; }
         public ICommand CollapseAll { get; private set; }
+
+        public ICommand SaveSprints { get; private set; }
 
         private void DoExpandAll()
         {
@@ -417,6 +451,10 @@ namespace EscapeDBUsage.ViewModels
 
         private ObservableCollection<NodeDbTableColumnsToExcel> nodesTableColumns;
         public ObservableCollection<NodeDbTableColumnsToExcel> NodesTableColumns { get { return nodesTableColumns; } set { SetProperty(ref nodesTableColumns, value); } }
+
+        private ObservableCollection<UISprint> sprints;
+        public ObservableCollection<UISprint> Sprints { get { return sprints; } set { SetProperty(ref sprints, value); } }
+
     }
 
     public enum FilterType

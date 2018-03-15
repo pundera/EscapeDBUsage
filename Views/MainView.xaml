@@ -11,6 +11,7 @@
              xmlns:prism="http://prismlibrary.com/"
              
              prism:ViewModelLocator.AutoWireViewModel="True"
+             
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -150,11 +151,11 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="\Images\table.png"/>
+                        <Image Margin="8,8" Source="\Images\table.png"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                        <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -170,11 +171,11 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\excel.png"/>
+                                <Image Margin="8,8" Source="\Images\excel.png"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                <TextBlock Margin="8,8" Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
+                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -183,10 +184,10 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="\Images\tab.png"/>
+                                        <Image Margin="8,8" Source="\Images\tab.png"/>
                                     </StackPanel>
-                                    <TextBlock Margin="4,0" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
-                                    <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                    <TextBlock Margin="8,8" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
+                                    <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -211,8 +212,8 @@
                         <Image Source="\Images\column.png"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                        <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -228,11 +229,11 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\excel.png"/>
+                                <Image Margin="8,8" Source="\Images\excel.png"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                <TextBlock Margin="8,8" Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
+                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -243,8 +244,8 @@
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="\Images\tab.png"/>
                                     </StackPanel>
-                                    <TextBlock Margin="4,0" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
-                                    <TextBlock Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                    <TextBlock Margin="8,8" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
+                                    <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -267,14 +268,38 @@
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\excel.png"/>
-                                <Label Content="excel / tab / table / column" />
+                                <Label Content="Excel / Tab / Table / Column" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
                 </TabItem.Header>
                 <Grid>
                     <StackPanel Orientation="Horizontal" Margin="0" Height="50" VerticalAlignment="Top">
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding Import}" Background="Transparent">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="0" Content="Sprint #"/>
+                            </StackPanel>
+                            <ComboBox Margin="0" Padding="0" Width="140" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint}" Background="Transparent">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Padding="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Padding="4" Content="# "/>
+                                                    <Label Padding="4" Content="{Binding Number}" />
+                                                </StackPanel>
+                                            </Label>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Padding="4" Content="{Binding Name}" />
+                                                <Label Padding="4" Content="ver.: "/>
+                                                <Label Padding="4" Content="{Binding Version}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <Button Visibility="Collapsed" Margin="4,2" Padding="4,4" Command="{Binding Import}" Background="Transparent">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="\Images\import.png" />
@@ -402,7 +427,7 @@
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\table.png"/>
-                                <Label Content="table / excel / tab" />
+                                <Label Content="Table / Excel / Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
@@ -419,14 +444,14 @@
                         </Button>
                     </StackPanel>
                     <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="750" >
-                    <TreeView.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                            <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
-                        </Style>
-                    </TreeView.ItemContainerStyle>
-                </TreeView>
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </TreeView>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -435,7 +460,7 @@
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\column.png"/>
-                                <Label Content="table-column / excel / tab" />
+                                <Label Content="Table-column / Excel / Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
@@ -462,6 +487,24 @@
                     </TreeView>
                 </Grid>
             </TabItem>
+
+
+            <TabItem>
+                <TabItem.Header>
+                    <Label>
+                        <Label.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="\Images\sprints.png"/>
+                                <Label Content="Sprints" />
+                            </StackPanel>
+                        </Label.Content>
+                    </Label>
+                </TabItem.Header>
+                <Grid>
+                    <ContentControl prism:RegionManager.RegionName="Sprints" />
+                </Grid>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </UserControl>

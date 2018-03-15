@@ -21,6 +21,7 @@ namespace EscapeDBUsage
             // View discovery
             var regionManager = Container.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("ContentRegion", () => Container.Resolve<MainView>());
+            regionManager.RegisterViewWithRegion("Sprints", () => Container.Resolve<SprintsView>());
         }
 
         protected override void ConfigureModuleCatalog()

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace EscapeDBUsage.Views
 {
     /// <summary>
-    /// Interaction logic for ExcelView.xaml
+    /// Interaction logic for SprintsView.xaml
     /// </summary>
-    public partial class ExcelView : UserControl
+    public partial class SprintsView : UserControl
     {
-        public ExcelView()
+        public SprintsView()
         {
             InitializeComponent();
         }

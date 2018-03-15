@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("EscapeDBUsage")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Asahi")]
 [assembly: AssemblyProduct("EscapeDBUsage")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright © Xxx 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
