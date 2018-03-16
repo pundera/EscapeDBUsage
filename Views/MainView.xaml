@@ -16,7 +16,7 @@
              d:DesignHeight="600" d:DesignWidth="1200">
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="BorderBrush" Value="#7A1C5107"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
 
         <converters:BoolToVisibilityConverter x:Key="VisibilityConverter" />
@@ -30,22 +30,19 @@
                 </Style>
             </HierarchicalDataTemplate.ItemContainerStyle>
             <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="\Images\excel.png"/>
-                    </StackPanel>
-                    <TextBlock Text="{Binding Path=Name}" Width="460" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Image Margin="2" Source="\Images\excel.png" Width="24"/>
+                        <TextBlock Text="{Binding Path=Name}" Width="470" FontWeight="Bold"/>
                 </StackPanel>
-                <Button Margin="8" Padding="4" Command="{Binding AddTab}" Background="Transparent">
+                <Button Margin="8" Padding="0" Command="{Binding AddTab}" Background="Transparent">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="+"/>
-                        <Image Source="\Images\tab.png"/>
+                        <Image Source="\Images\tab.png" Width="24"/>
                     </StackPanel>
                 </Button>
-                <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                <Button Margin="2" Padding="0" Command="{Binding Remove}" Background="Transparent">
                     <StackPanel Orientation="Horizontal">
-                        
-                        <Image Source="\Images\remove.png"/>
+                        <Image Source="\Images\remove.png" Width="24"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -59,25 +56,24 @@
                         </Style>
                     </HierarchicalDataTemplate.ItemContainerStyle>
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\tab.png"/>
+                                <Image Margin="2" Source="\Images\tab.png" Width="24"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Text="{Binding Path=Name}" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="440" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="422" TextWrapping="Wrap" />
                             </StackPanel>
                         </StackPanel>
-                        <Button Margin="8" Padding="4" Command="{Binding AddTable}" Background="Transparent">
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="+"/>
-                                <Image Source="\Images\table.png"/>
-                            </StackPanel>
+                        <Button Margin="8" Padding="0" Command="{Binding AddTable}" Background="Transparent">
+                            <Image Source="\Images\add-table.png" Width="24"/>
                         </Button>
-                        <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                        <Button Margin="8" Padding="0" Command="{Binding AddTables}" Background="Transparent">
+                            <Image Source="\Images\add-tables.png" Width="24"/>
+                        </Button>
+                        <Button Margin="8" Padding="0" Command="{Binding Remove}" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
-                                
-                                <Image Source="\Images\remove.png"/>
+                                <Image Source="\Images\remove.png" Width="24"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -91,42 +87,38 @@
                                 </Style>
                             </HierarchicalDataTemplate.ItemContainerStyle>
                             <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="\Images\table.png"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Image Margin="2" Source="\Images\table.png" Width="24"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Path=Name}" Width="380" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="402" />
                                     </StackPanel>
-                                    <TextBlock Text="{Binding Path=Name}" Width="420" />
                                 </StackPanel>
-                                <Button Margin="8" Padding="4" Command="{Binding AddColumn}" Background="Transparent">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="+"/>
-                                        <Image Source="\Images\column.png"/>
-                                    </StackPanel>
+                                <Button Margin="8" Padding="0" Command="{Binding AddColumn}" Background="Transparent">
+                                    <Image Source="\Images\add-column.png" Width="24"/>
                                 </Button>
-                                <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
-                                    <StackPanel Orientation="Horizontal">
-                                        
-                                        <Image Source="\Images\remove.png"/>
-                                    </StackPanel>
+                                <Button Margin="8" Padding="0" Command="{Binding AddColumns}" Background="Transparent">
+                                    <Image Source="\Images\add-columns.png" Width="24"/>
+                                </Button>
+                                <Button Margin="8" Padding="0" Command="{Binding Remove}" Background="Transparent">
+                                    <Image Source="\Images\remove.png" Width="24"/>
                                 </Button>
                             </StackPanel>
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <DataTemplate DataType="{x:Type uiclasses:NodeDbColumn}">
                                     <StackPanel Orientation="Horizontal">
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Source="\Images\column.png"/>
-                                            </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Image Margin="2" Source="\Images\column.png" Width="24"/>
                                             <StackPanel HorizontalAlignment="Left">
                                                 <TextBlock Text="{Binding Path=Name}" FontWeight="Bold"/>
                                                 <TextBlock Text="{Binding Path=DBColumnName}" FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="477" TextWrapping="Wrap" />
+                                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="467" TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
-                                        <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                                        <Button Margin="8" Padding="0" Command="{Binding Remove}" Background="Transparent">
                                             <StackPanel Orientation="Horizontal">
-                                                
-                                                <Image Source="\Images\remove.png"/>
+
+                                                <Image Source="\Images\remove.png" Width="24"/>
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
@@ -449,7 +441,7 @@
                             </Button.Content>
                         </Button>
                     </StackPanel>
-                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="750" >
+                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="710" >
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -466,7 +458,7 @@
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\column.png"/>
-                                <Label Content="Table-column / Excel / Tab" />
+                                <Label Content="Table-Column / Excel / Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>

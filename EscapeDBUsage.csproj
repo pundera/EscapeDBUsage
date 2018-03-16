@@ -211,5 +211,13 @@
   <ItemGroup>
     <Resource Include="Images\copy-sprint.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add-columns.png" />
+    <Resource Include="Images\add-tables.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add-column.png" />
+    <Resource Include="Images\add-table.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
