@@ -10,9 +10,76 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="8" BorderBrush="DarkGreen" BorderThickness="1">
+                                <Border.Background>
+                                    <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                                        ScaleX="1.5" ScaleY="1.5"/>
+                                                <TranslateTransform X="0.02" Y="0.3"/>
+                                            </TransformGroup>
+                                        </RadialGradientBrush.RelativeTransform>
+                                        <GradientStop Offset="1" Color="#00000000"/>
+                                        <GradientStop Offset="0.3" Color="#998BE870"/>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextElement.FontWeight="Bold">
+                                </ContentPresenter>
+                            </Border>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                                                    <TranslateTransform X="0.02" Y="0.3"/>
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#00000000" Offset="1"/>
+                                            <GradientStop Color="#D0316E1F" Offset="0.3"/>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF33962B"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
     <Grid Margin="0,0,0,0">
         <Label FontWeight="Bold" Content="Sprints" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <ListBox Margin="10,41,10,53" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint, Mode=TwoWay}">
+            <ListBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8" />
+                </Style>
+            </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -25,10 +92,10 @@
                             <TextBox Padding="4" Width="80" Text="{Binding Version}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Button Margin="6" Padding="8" Background="LightGreen" Content="[+] Insert / Add" Command="{Binding InsertSprint}"/>
-                            <Button Margin="6" Padding="8" Background="LightPink" Content="[-] Remove" Command="{Binding RemoveSprint}" />
-                            <Button Margin="2" Padding="2" Background="LightPink" Command="{Binding CopySprint}" >
-                                <Image Source="/EscapeDBUsage;component/Images/copy-sprint.png" />
+                            <Button Margin="6" Padding="12" Content="[+] Insert / Add" Command="{Binding InsertSprint}"/>
+                            <Button Margin="6" Padding="12" Content="[-] Remove" Command="{Binding RemoveSprint}" />
+                            <Button Margin="2" Padding="8" Command="{Binding CopySprint}" >
+                                <Image Margin="8" Width="24" Source="/EscapeDBUsage;component/Images/copy-sprint.png" />
                                 <i:Interaction.Triggers>
                                     <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
                                         <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />

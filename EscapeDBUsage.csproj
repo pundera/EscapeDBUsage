@@ -133,9 +133,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Data\data.json" />
-    <None Include="Data\sprints.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Data\sprints.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -160,12 +158,6 @@
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\excel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\table.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\import.png" />
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +177,6 @@
     <Resource Include="Images\load.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\tab.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\remove.png" />
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\column-small.png" />
-    <Resource Include="Images\column.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\collapse-all.png" />
@@ -212,12 +200,27 @@
     <Resource Include="Images\copy-sprint.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\add-columns.png" />
-    <Resource Include="Images\add-tables.png" />
+    <Resource Include="Images\xxl-background2.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\add-column.png" />
     <Resource Include="Images\add-table.png" />
+    <Resource Include="Images\column.png" />
+    <Resource Include="Images\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add-columns.png" />
+    <Resource Include="Images\add-tables.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add-excel.png" />
+    <Resource Include="Images\excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add-tab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tab.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,19 +11,187 @@
              xmlns:prism="http://prismlibrary.com/"
              
              prism:ViewModelLocator.AutoWireViewModel="True"
-             
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1200">
+                          
+             mc:Ignorable="d">
+    <UserControl.Background>
+        <ImageBrush ImageSource="/EscapeDBUsage;component/Images/xxl-background2.png" Stretch="None"/>
+    </UserControl.Background>
     <UserControl.Resources>
+
+        <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border CornerRadius="8,0,0,8"
+                            BorderThickness="1"
+                            Background="{TemplateBinding Background}"
+                                BorderBrush="Black">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="18"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="PART_EditableTextBox"
+                                 Style="{StaticResource ComboBoxTextBoxStyle}"
+                                 Padding="5,0,0,0"
+                                 Height="{TemplateBinding Height}"/>
+                            <ToggleButton Grid.Column="1" Margin="0"
+                                     Background="Transparent"     
+                                     Height="{TemplateBinding Height}"                                    
+                                     Focusable="False"
+                                     IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press">
+                                <ToggleButton.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="0,8,8,0"/>
+                                    </Style>
+                                </ToggleButton.Resources>
+                                <Path Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="DodgerBlue" />
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite"
+                                      Content="{TemplateBinding SelectionBoxItem}"
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="5,0,0,0"/>
+                            <Popup Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True" 
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"                
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                    x:Name="DropDownBorder"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Background="Azure"
+                                    BorderBrush="Black"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="{x:Type Button}">
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="8" BorderBrush="DarkGreen" BorderThickness="1">
+                                <Border.Background>
+                                    <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                                        ScaleX="1.5" ScaleY="1.5"/>
+                                                <TranslateTransform X="0.02" Y="0.3"/>
+                                            </TransformGroup>
+                                        </RadialGradientBrush.RelativeTransform>
+                                        <GradientStop Offset="1" Color="#00000000"/>
+                                        <GradientStop Offset="0.3" Color="#998BE870"/>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextElement.FontWeight="Bold">
+                                </ContentPresenter>
+                            </Border>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                                                    <TranslateTransform X="0.02" Y="0.3"/>
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#00000000" Offset="1"/>
+                                            <GradientStop Color="#D0316E1F" Offset="0.3"/>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF33962B"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundedLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Background" Value="#A0FAEBD7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Label}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}" 
+                                SnapsToDevicePixels="true" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <converters:BoolToVisibilityConverter x:Key="VisibilityConverter" />
+
         <!-- EXCEL -->
         <HierarchicalDataTemplate x:Key="TreeTemplateExcel" DataType="{x:Type uiclasses:NodeExcel}" ItemsSource="{Binding Nodes}">
             <HierarchicalDataTemplate.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="8" />
+                        </Style>
+                    </Style.Resources>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                     <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
@@ -31,18 +199,33 @@
             </HierarchicalDataTemplate.ItemContainerStyle>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Image Margin="2" Source="\Images\excel.png" Width="24"/>
-                        <TextBlock Text="{Binding Path=Name}" Width="470" FontWeight="Bold"/>
+                    <Image Source="\Images\excel.png" Width="32"/>
+                    <TextBlock Text="{Binding Path=Name}" Width="304" FontWeight="Bold"/>
                 </StackPanel>
-                <Button Margin="8" Padding="0" Command="{Binding AddTab}" Background="Transparent">
+                <Button Margin="8" Padding="4" Command="{Binding AddTab}" Background="Transparent">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Add Sheet</TextBlock>
+                                <TextBlock>To This Excel Adds a New Spread Sheet</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="+"/>
-                        <Image Source="\Images\tab.png" Width="24"/>
+                        <Image Margin="8" Source="\Images\add-tab.png" Width="24"/>
                     </StackPanel>
                 </Button>
-                <Button Margin="2" Padding="0" Command="{Binding Remove}" Background="Transparent">
+                <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Remove Excel</TextBlock>
+                                <TextBlock>Removes this excel</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="\Images\remove.png" Width="24"/>
+                        <Image Margin="8" Source="\Images\remove.png" Width="24"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -58,22 +241,47 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Margin="2" Source="\Images\tab.png" Width="24"/>
+                                <Image Margin="2" Source="\Images\tab.png" Width="32"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Text="{Binding Path=Name}" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="422" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="222" TextWrapping="Wrap" />
                             </StackPanel>
                         </StackPanel>
-                        <Button Margin="8" Padding="0" Command="{Binding AddTable}" Background="Transparent">
-                            <Image Source="\Images\add-table.png" Width="24"/>
+                        <Button Margin="8" Padding="4" Command="{Binding AddTable}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Add DB Table</TextBlock>
+                                        <TextBlock>To this spread sheet adds a new database table.</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                            <Image Margin="8" Source="\Images\add-table.png" Width="24"/>
                         </Button>
-                        <Button Margin="8" Padding="0" Command="{Binding AddTables}" Background="Transparent">
-                            <Image Source="\Images\add-tables.png" Width="24"/>
+                        <Button Margin="8" Padding="4" Command="{Binding AddTables}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Add DB Table(s)</TextBlock>
+                                        <TextBlock>To this spread sheet adds new database table(s).</TextBlock>
+                                        <TextBlock>Offline copy of DB structure will be used!</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                            <Image Margin="8" Source="\Images\add-tables.png" Width="24"/>
                         </Button>
-                        <Button Margin="8" Padding="0" Command="{Binding Remove}" Background="Transparent">
+                        <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Remove Sheet</TextBlock>
+                                        <TextBlock>Removes this spread sheet</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\remove.png" Width="24"/>
+                                <Image Margin="8" Source="\Images\remove.png" Width="24"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -88,39 +296,48 @@
                             </HierarchicalDataTemplate.ItemContainerStyle>
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Image Margin="2" Source="\Images\table.png" Width="24"/>
+                                    <Image Margin="2" Source="\Images\table.png" Width="32"/>
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Path=Name}" Width="380" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="402" />
+                                        <TextBlock Text="{Binding Path=Name}" Width="180" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Width="202" />
                                     </StackPanel>
                                 </StackPanel>
-                                <Button Margin="8" Padding="0" Command="{Binding AddColumn}" Background="Transparent">
-                                    <Image Source="\Images\add-column.png" Width="24"/>
+                                <Button Margin="8" Padding="4" Command="{Binding AddColumn}" Background="Transparent">
+                                    <Image Margin="8" Source="\Images\add-column.png" Width="24"/>
                                 </Button>
-                                <Button Margin="8" Padding="0" Command="{Binding AddColumns}" Background="Transparent">
-                                    <Image Source="\Images\add-columns.png" Width="24"/>
+                                <Button Margin="8" Padding="4" Command="{Binding AddColumns}" Background="Transparent">
+                                    <Image Margin="8" Source="\Images\add-columns.png" Width="24"/>
                                 </Button>
-                                <Button Margin="8" Padding="0" Command="{Binding Remove}" Background="Transparent">
-                                    <Image Source="\Images\remove.png" Width="24"/>
+                                <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                                    <Image Margin="8" Source="\Images\remove.png" Width="24"/>
                                 </Button>
                             </StackPanel>
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <DataTemplate DataType="{x:Type uiclasses:NodeDbColumn}">
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <Image Margin="2" Source="\Images\column.png" Width="24"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Image Grid.Row="0" Margin="2" Source="\Images\column.png" Width="32"/>
+                                            </Grid>
                                             <StackPanel HorizontalAlignment="Left">
                                                 <TextBlock Text="{Binding Path=Name}" FontWeight="Bold"/>
                                                 <TextBlock Text="{Binding Path=DBColumnName}" FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="467" TextWrapping="Wrap" />
+                                                <TextBlock Text="{Binding Path=Description}" FontWeight="Light" Width="299" TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
-                                        <Button Margin="8" Padding="0" Command="{Binding Remove}" Background="Transparent">
-                                            <StackPanel Orientation="Horizontal">
-
-                                                <Image Source="\Images\remove.png" Width="24"/>
-                                            </StackPanel>
-                                        </Button>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                                                <Image Margin="8" Source="\Images\remove.png" Width="24"/>
+                                            </Button>
+                                        </Grid>
                                     </StackPanel>
                                 </DataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
@@ -130,7 +347,7 @@
             </HierarchicalDataTemplate.ItemTemplate>
         </HierarchicalDataTemplate>
         <!-- END of EXCEL -->
-    
+
         <!-- TABLE -->
         <HierarchicalDataTemplate x:Key="TreeTemplateTable" DataType="{x:Type otherviews:NodeDbTableToExcel}" ItemsSource="{Binding Nodes}">
             <HierarchicalDataTemplate.ItemContainerStyle>
@@ -247,44 +464,67 @@
         </HierarchicalDataTemplate>
         <!-- END of TABLE-COLUMNS -->
 
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
 
-
-
+        <!-- ToolTip -->
+        <Style TargetType="{x:Type ToolTip}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
 
     </UserControl.Resources>
     <Grid>
-        <TabControl>
-            <TabItem>
+        <TabControl Background="Transparent">
+            <TabItem Padding="1" Background="Transparent">
+                <TabItem.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8,8,0,0" />
+                    </Style>
+                </TabItem.Resources>
                 <TabItem.Header>
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\excel.png"/>
-                                <Label Content="Excel / Tab / Table / Column" />
+                                <TextBlock Width="42" TextWrapping="Wrap" Text="Excel Tab Table Column" >
+                                </TextBlock>
                             </StackPanel>
                         </Label.Content>
                     </Label>
                 </TabItem.Header>
                 <Grid>
-                    <StackPanel Orientation="Horizontal" Margin="0" Height="50" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,0" Height="40" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Orientation="Horizontal">
-                                <Label Margin="0" Content="Sprint #"/>
+                                <Label Margin="0" Content="Sprint: "/>
                             </StackPanel>
                             <ComboBox Margin="0" Padding="0" Width="140" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint}" Background="Transparent">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
+                                            <StackPanel.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="8"/>
+                                                </Style>
+                                            </StackPanel.Resources>
                                             <Label Padding="0">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Label Padding="4" Content="# "/>
-                                                    <Label Padding="4" Content="{Binding Number}" />
+                                                    <Label Padding="2" Content="{Binding Number}" />
                                                 </StackPanel>
                                             </Label>
                                             <StackPanel Orientation="Horizontal">
-                                                <Label Padding="4" Content="{Binding Name}" />
-                                                <Label Padding="4" Content="ver.: "/>
-                                                <Label Padding="4" Content="{Binding Version}"/>
+                                                <Label Padding="2" Content="{Binding Name}" />
+                                                <Label Padding="2" Content="ver.: "/>
+                                                <Label Padding="2" Content="{Binding Version}"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -299,10 +539,10 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding Load}" Background="Transparent">
+                        <Button Margin="4,2" Padding="8" Command="{Binding Load}" Background="Transparent">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Images\load.png" />
+                                    <Image Margin="8" Source="\Images\load.png" />
                                     <Label Content="Load" />
                                 </StackPanel>
                             </Button.Content>
@@ -310,122 +550,137 @@
                         <Button Margin="4,2" Padding="4,4" Command="{Binding Save}" Background="Transparent">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Images\save.png" />
+                                    <Image Margin="8" Source="\Images\save.png" />
                                     <Label Content="Save" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
                         <Button Margin="4,2" Padding="4,4" Command="{Binding ExpandAll}" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\expand-all.png"/>
+                                <Image Margin="8" Source="\Images\expand-all.png"/>
                                 <Label Content="Expand All" />
                             </StackPanel>
                         </Button>
                         <Button Margin="4,2" Padding="4,4" Command="{Binding CollapseAll}" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\collapse-all.png"/>
+                                <Image Margin="8" Source="\Images\collapse-all.png"/>
                                 <Label Content="Collapse All" />
                             </StackPanel>
                         </Button>
                         <Button Margin="24,2" Padding="4,4" Command="{Binding AddExcel}" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\excel.png"/>
+                                <Image Margin="8" Source="\Images\add-excel.png"/>
                                 <Label Content="Add Excel" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,55,0,0" Height="40" VerticalAlignment="Top">
-                        <Label Margin="4,2" Padding="4,4">
-                            <Label.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Images\column.png" />
-                                    <Label Content="Fulltext (columns)" FontWeight="Bold"/>
-                                    <Label Content="Name" FontWeight="Light"/>
-                                    <TextBox Padding="4" Text="{Binding FullTextColumnName, UpdateSourceTrigger=PropertyChanged}" Width="160" />
-                                    <Label Content="or Description" FontWeight="Light"/>
-                                    <TextBox Padding="4" Text="{Binding FullTextColumnDescription, UpdateSourceTrigger=PropertyChanged}" Width="180" />
-                                </StackPanel>
-                            </Label.Content>
-                        </Label>
+                    <StackPanel Orientation="Horizontal" Margin="0,55,0,0" Height="25" VerticalAlignment="Top">
+                        <Image Source="\Images\column.png" />
+                        <Label Content="Fulltext (columns)" FontWeight="Bold"/>
+                        <Label Content="Name" FontWeight="Light"/>
+                        <TextBox Padding="4" Text="{Binding FullTextColumnName, UpdateSourceTrigger=PropertyChanged}" Width="160" >
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <Label Content="or Description" FontWeight="Light"/>
+                        <TextBox Padding="4" Text="{Binding FullTextColumnDescription, UpdateSourceTrigger=PropertyChanged}" Width="112" />
                     </StackPanel>
 
-                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateExcel}" ItemsSource="{Binding NodesExcel}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="640" >
+                    <TreeView Background="Transparent" ItemTemplate="{StaticResource ResourceKey=TreeTemplateExcel}" ItemsSource="{Binding NodesExcel}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="500" >
+                        <TreeView.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="8" />
+                            </Style>
+                        </TreeView.Resources>
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="8" />
+                                    </Style>
+                                </Style.Resources>
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                                 <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </TreeView>
-
-                    <Grid Margin="650,80,0,0" Height="110" VerticalAlignment="Top" Visibility="{Binding ExcelVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
-                        <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/excel.png"/>
-                        <Button Command="{Binding SelectedExcel.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
-                        </Button>
-                        <Button Command="{Binding SelectedExcel.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
-                        </Button>
-                        <Label Content="Name" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top"/>
-                        <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="23" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedExcel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                        <Label Content="Description" HorizontalAlignment="Left" Margin="90,38,0,0" VerticalAlignment="Top" Width="71"/>
-                        <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Height="66" Margin="161,38,10,0" Text="{Binding SelectedExcel.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                    </Grid>
-
-                    <Grid Margin="650,195,0,0" Height="110" VerticalAlignment="Top" Visibility="{Binding TabVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
-                        <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/tab.png"/>
-                        <Button Command="{Binding SelectedTab.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
-                        </Button>
-                        <Button Command="{Binding SelectedTab.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
-                        </Button>
-                        <Label Content="Name" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top"/>
-                        <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="23" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedTab.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                        <Label Content="Description" HorizontalAlignment="Left" Margin="90,38,0,0" VerticalAlignment="Top" Width="71"/>
-                        <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Height="67" Margin="161,38,10,0" Text="{Binding SelectedTab.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                    </Grid>
-
-                    <Grid Margin="650,305, 0, 0" Height="110" VerticalAlignment="Top" Visibility="{Binding TableVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
-                        <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/table.png"/>
-                        <Button Command="{Binding SelectedDbTable.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
-                        </Button>
-                        <Button Command="{Binding SelectedDbTable.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
-                        </Button>
-                        <Label Content="Name" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top"/>
-                        <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="23" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedDbTable.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                        <Label Content="Description" HorizontalAlignment="Left" Margin="90,38,0,0" VerticalAlignment="Top" Width="71"/>
-                        <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Height="67" Margin="161,38,10,0" Text="{Binding SelectedDbTable.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                    </Grid>
-
-                    <Grid Margin="650,415, 0, 0" Height="130" VerticalAlignment="Top" Visibility="{Binding ColumnVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
-                        <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/column.png"/>
-                        <Button Command="{Binding SelectedDbColumn.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
-                        </Button>
-                        <Button Command="{Binding SelectedDbColumn.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
-                        </Button>
-                        <Label Content="Name" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top"/>
-                        <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="23" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedDbColumn.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                        <Label Content="DB Column Name" HorizontalAlignment="Left" Margin="91,40,0,0" VerticalAlignment="Top"/>
-                        <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="23" Margin="201,40,10,0" TextWrapping="Wrap" Text="{Binding SelectedDbColumn.DBColumnName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                        <Label Content="Description" HorizontalAlignment="Left" Margin="91,68,0,0" VerticalAlignment="Top" Width="71"/>
-                        <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Height="63" Margin="162,68,9,-1" Text="{Binding SelectedDbColumn.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+                    
+                    <!-- NODE EDIT -->
+                    <Grid Margin="509,95,0,0">
+                        <Grid Margin="0,0,10,0" Height="110" VerticalAlignment="Top" Visibility="{Binding ExcelVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
+                            <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/excel.png"/>
+                            <Button Command="{Binding SelectedExcel.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
+                            </Button>
+                            <Button Command="{Binding SelectedExcel.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
+                            </Button>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Excel Name" HorizontalAlignment="Left" Margin="62,10,0,0" VerticalAlignment="Top" />
+                            <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="26" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedExcel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Description" HorizontalAlignment="Left" Margin="91,41,0,0" VerticalAlignment="Top" Width="70"/>
+                            <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Margin="166,41,10,10" Text="{Binding SelectedExcel.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                        <Grid Margin="10,115,10,0" Height="110" VerticalAlignment="Top" Visibility="{Binding TabVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
+                            <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/tab.png"/>
+                            <Button Command="{Binding SelectedTab.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
+                            </Button>
+                            <Button Command="{Binding SelectedTab.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
+                            </Button>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Sheet Name" HorizontalAlignment="Left" Margin="58,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="26" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedTab.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Description" HorizontalAlignment="Left" Margin="91,41,0,0" VerticalAlignment="Top" Width="70"/>
+                            <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Margin="166,41,10,10" Text="{Binding SelectedTab.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                        <Grid Margin="10,230,10,0" Height="100" VerticalAlignment="Top" Visibility="{Binding TableVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
+                            <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/table.png"/>
+                            <Button Command="{Binding SelectedDbTable.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
+                            </Button>
+                            <Button Command="{Binding SelectedDbTable.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
+                            </Button>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Table Name" HorizontalAlignment="Left" Margin="61,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="26" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedDbTable.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Description" HorizontalAlignment="Left" Margin="91,41,0,0" VerticalAlignment="Top" Width="70"/>
+                            <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Margin="166,41,10,10" Text="{Binding SelectedDbTable.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                        <Grid Margin="10,335,10,0" Visibility="{Binding ColumnVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
+                            <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/column.png"/>
+                            <Button Command="{Binding SelectedDbColumn.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
+                            </Button>
+                            <Button Command="{Binding SelectedDbColumn.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
+                            </Button>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Column Name" HorizontalAlignment="Left" Margin="47,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="26" Margin="138,10,10,0" TextWrapping="Wrap" Text="{Binding SelectedDbColumn.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="DB Column Name" HorizontalAlignment="Left" Margin="91,40,0,0" VerticalAlignment="Top"/>
+                            <TextBox FontWeight="Bold" HorizontalContentAlignment="Left" Padding="2" Height="25" Margin="201,41,10,0" TextWrapping="Wrap" Text="{Binding SelectedDbColumn.DBColumnName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+                            <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Description" HorizontalAlignment="Left" Margin="91,71,0,0" VerticalAlignment="Top" Width="71"/>
+                            <TextBox HorizontalContentAlignment="Left" TextWrapping="Wrap" Padding="2" Margin="166,71,10,10" Text="{Binding SelectedDbColumn.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Background="Transparent">
+                <TabItem.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8,8,0,0" />
+                    </Style>
+                </TabItem.Resources>
                 <TabItem.Header>
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\table.png"/>
-                                <Label Content="Table / Excel / Tab" />
+                                <TextBlock Width="42" TextWrapping="Wrap" Text="Table Excel Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
@@ -442,8 +697,18 @@
                         </Button>
                     </StackPanel>
                     <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="710" >
+                        <TreeView.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="8" />
+                            </Style>
+                        </TreeView.Resources>
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="8" />
+                                    </Style>
+                                </Style.Resources>
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                                 <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}" />
@@ -452,13 +717,18 @@
                     </TreeView>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Background="Transparent">
+                <TabItem.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8,8,0,0" />
+                    </Style>
+                </TabItem.Resources>
                 <TabItem.Header>
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="\Images\column.png"/>
-                                <Label Content="Table-Column / Excel / Tab" />
+                                <TextBlock Width="42" TextWrapping="Wrap" Text="Column Excel Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
@@ -487,7 +757,12 @@
             </TabItem>
 
 
-            <TabItem>
+            <TabItem Background="Transparent">
+                <TabItem.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8,8,0,0" />
+                    </Style>
+                </TabItem.Resources>
                 <TabItem.Header>
                     <Label>
                         <Label.Content>

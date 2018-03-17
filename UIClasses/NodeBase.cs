@@ -125,7 +125,7 @@ namespace EscapeDBUsage.UIClasses
             set { SetProperty(ref description, value); }
         }
 
-        private bool isExpanded;
+        private bool isExpanded = true;
         public bool IsExpanded
         {
             get { return isExpanded; }

@@ -56,6 +56,7 @@ namespace EscapeDBUsage.Helpers
 
                     var result = new ObservableCollection<NodeExcel>();
                     nodeRoot.Nodes = result;
+                    if (s.Excels == null) continue;
                     foreach (var r in s.Excels)
                     {
                         var ne = new NodeExcel(evAgg, nodeRoot) { Name = r.Name, Description = r.Description };
