@@ -5,7 +5,6 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="609" Width="800" Icon="/EscapeDBUsage;component/Images/hearts.ico">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="0,0,0,26" />
-        <StatusBar Background="Transparent" Margin="0,0,0,0" Height="21" VerticalAlignment="Bottom"/>
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
     </Grid>
 </Window>

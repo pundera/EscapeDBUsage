@@ -207,7 +207,7 @@
                         <ToolTip>
                             <StackPanel>
                                 <TextBlock FontWeight="Bold">Add Sheet</TextBlock>
-                                <TextBlock>To This Excel Adds a New Spread Sheet</TextBlock>
+                                <TextBlock>To this excel adds a new spread sheet</TextBlock>
                             </StackPanel>
                         </ToolTip>
                     </Button.ToolTip>
@@ -303,12 +303,37 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <Button Margin="8" Padding="4" Command="{Binding AddColumn}" Background="Transparent">
+                                    <Button.ToolTip>
+                                        <ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold">Add DB column</TextBlock>
+                                                <TextBlock>To this DB table adds a new DB column</TextBlock>
+                                            </StackPanel>
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                     <Image Margin="8" Source="\Images\add-column.png" Width="24"/>
                                 </Button>
                                 <Button Margin="8" Padding="4" Command="{Binding AddColumns}" Background="Transparent">
+                                    <Button.ToolTip>
+                                        <ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold">Add DB Column(s)</TextBlock>
+                                                <TextBlock>To this DB table adds a new DB column(s)</TextBlock>
+                                                <TextBlock>DB Schema - tables and columns are stored offline!</TextBlock>
+                                            </StackPanel>
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                     <Image Margin="8" Source="\Images\add-columns.png" Width="24"/>
                                 </Button>
                                 <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                                    <Button.ToolTip>
+                                        <ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold">Remove DB Table</TextBlock>
+                                                <TextBlock>Removes this DB table</TextBlock>
+                                            </StackPanel>
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                     <Image Margin="8" Source="\Images\remove.png" Width="24"/>
                                 </Button>
                             </StackPanel>
@@ -335,6 +360,14 @@
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
                                             <Button Grid.Row="1" Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                                                <Button.ToolTip>
+                                                    <ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Remove DB Column</TextBlock>
+                                                            <TextBlock>Removes this DB column</TextBlock>
+                                                        </StackPanel>
+                                                    </ToolTip>
+                                                </Button.ToolTip>
                                                 <Image Margin="8" Source="\Images\remove.png" Width="24"/>
                                             </Button>
                                         </Grid>
@@ -482,6 +515,8 @@
         </Style>
 
     </UserControl.Resources>
+    
+    
     <Grid>
         <TabControl Background="Transparent">
             <TabItem Padding="1" Background="Transparent">
@@ -540,6 +575,14 @@
                             </Button.Content>
                         </Button>
                         <Button Margin="4,2" Padding="8" Command="{Binding Load}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Load Data (Sprints and Tree Structures) from Storage</TextBlock>
+                                        <TextBlock>Loads tree structures form /Data/sprints.json</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Margin="8" Source="\Images\load.png" />
@@ -548,6 +591,14 @@
                             </Button.Content>
                         </Button>
                         <Button Margin="4,2" Padding="4,4" Command="{Binding Save}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Save Data (Sprints and Tree Structures) to Storage</TextBlock>
+                                        <TextBlock>Saves tree structures to /Data/sprints.json</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>                            
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Margin="8" Source="\Images\save.png" />
@@ -556,18 +607,40 @@
                             </Button.Content>
                         </Button>
                         <Button Margin="4,2" Padding="4,4" Command="{Binding ExpandAll}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Expand All Tree Nodes</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="8" Source="\Images\expand-all.png"/>
                                 <Label Content="Expand All" />
                             </StackPanel>
                         </Button>
                         <Button Margin="4,2" Padding="4,4" Command="{Binding CollapseAll}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Collapse All Tree Nodes</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="8" Source="\Images\collapse-all.png"/>
                                 <Label Content="Collapse All" />
                             </StackPanel>
                         </Button>
                         <Button Margin="24,2" Padding="4,4" Command="{Binding AddExcel}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Add Excel</TextBlock>
+                                        <TextBlock>Adds new excel node to tree structure</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="8" Source="\Images\add-excel.png"/>
                                 <Label Content="Add Excel" />
@@ -615,9 +688,25 @@
                         <Grid Margin="0,0,10,0" Height="110" VerticalAlignment="Top" Visibility="{Binding ExcelVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
                             <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/excel.png"/>
                             <Button Command="{Binding SelectedExcel.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move Excel Up</TextBlock>
+                                            <TextBlock>Move excel up in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
                             </Button>
                             <Button Command="{Binding SelectedExcel.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move Excel Down</TextBlock>
+                                            <TextBlock>Move excel down in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
                             </Button>
                             <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Excel Name" HorizontalAlignment="Left" Margin="62,10,0,0" VerticalAlignment="Top" />
@@ -628,9 +717,25 @@
                         <Grid Margin="10,115,10,0" Height="110" VerticalAlignment="Top" Visibility="{Binding TabVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
                             <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/tab.png"/>
                             <Button Command="{Binding SelectedTab.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move Sheet Up</TextBlock>
+                                            <TextBlock>Move sheet up in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
                             </Button>
                             <Button Command="{Binding SelectedTab.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move Sheet Down</TextBlock>
+                                            <TextBlock>Move sheet down in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
                             </Button>
                             <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Sheet Name" HorizontalAlignment="Left" Margin="58,10,0,0" VerticalAlignment="Top"/>
@@ -641,9 +746,25 @@
                         <Grid Margin="10,230,10,0" Height="100" VerticalAlignment="Top" Visibility="{Binding TableVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
                             <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/table.png"/>
                             <Button Command="{Binding SelectedDbTable.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move DB Table Up</TextBlock>
+                                            <TextBlock>Move DB table up in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
                             </Button>
                             <Button Command="{Binding SelectedDbTable.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move Sheet Down</TextBlock>
+                                            <TextBlock>Move sheet down in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
                             </Button>
                             <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Table Name" HorizontalAlignment="Left" Margin="61,10,0,0" VerticalAlignment="Top"/>
@@ -654,9 +775,25 @@
                         <Grid Margin="10,335,10,0" Visibility="{Binding ColumnVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
                             <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/column.png"/>
                             <Button Command="{Binding SelectedDbColumn.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move DB Column Up</TextBlock>
+                                            <TextBlock>Move DB column up in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/up.png"/>
                             </Button>
                             <Button Command="{Binding SelectedDbColumn.Down}" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Background="Transparent" >
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold">Move DB Column Down</TextBlock>
+                                            <TextBlock>Move DB column down in the tree structure</TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Button.ToolTip>
                                 <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/down.png"/>
                             </Button>
                             <Label Style="{StaticResource ResourceKey=RoundedLabelStyle}" Content="Column Name" HorizontalAlignment="Left" Margin="47,10,0,0" VerticalAlignment="Top"/>
@@ -745,6 +882,11 @@
                         </Button>
                     </StackPanel>
                     <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTableColumn}" ItemsSource="{Binding NodesTableColumns}" Margin="0,95,0,0" HorizontalAlignment="Left" Width="750" >
+                        <TreeView.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="8" />
+                            </Style>
+                        </TreeView.Resources>
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />

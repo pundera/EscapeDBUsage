@@ -92,8 +92,12 @@
                             <TextBox Padding="4" Width="80" Text="{Binding Version}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Button Margin="6" Padding="12" Content="[+] Insert / Add" Command="{Binding InsertSprint}"/>
-                            <Button Margin="6" Padding="12" Content="[-] Remove" Command="{Binding RemoveSprint}" />
+                            <Button Margin="6" Padding="12" Command="{Binding InsertSprint}">
+                                <Image Margin="8" Width="24" Source="/EscapeDBUsage;component/Images/add.png" />
+                            </Button>
+                            <Button Margin="6" Padding="12" Command="{Binding RemoveSprint}" >
+                                <Image Margin="8" Width="24" Source="/EscapeDBUsage;component/Images/remove.png" />
+                            </Button>
                             <Button Margin="2" Padding="8" Command="{Binding CopySprint}" >
                                 <Image Margin="8" Width="24" Source="/EscapeDBUsage;component/Images/copy-sprint.png" />
                                 <i:Interaction.Triggers>
