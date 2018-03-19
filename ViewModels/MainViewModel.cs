@@ -117,6 +117,8 @@ namespace EscapeDBUsage.ViewModels
                     root = selectedSprint.Root;
                     NodesExcel = selectedSprint.Root.Nodes;
                     if (NodesExcel!=null && NodesExcel.Count>0) SelectedExcel = NodesExcel.First();
+
+                    SetDescShown(AreDescsShown);
                 }
             }
         }
@@ -129,6 +131,9 @@ namespace EscapeDBUsage.ViewModels
             var list = NodesTable = new ObservableCollection<NodeDbTableToExcel>();
             RefreshHelper.RefreshTables(eventAgg, root, ref list);
             NodesTable = list;
+
+            // slow?? :-)
+            SetDescShown(AreDescsShown);
         }
 
         private void DoRefreshColumns()
@@ -136,6 +141,9 @@ namespace EscapeDBUsage.ViewModels
             var list = NodesTableColumns = new ObservableCollection<NodeDbTableColumnsToExcel>();
             RefreshHelper.RefreshTableColumns(eventAgg, root, ref list);
             NodesTableColumns = list;
+
+            // slow?? :-)
+            SetDescShown(AreDescsShown);
         }
 
         private void DoSave()
@@ -457,23 +465,79 @@ namespace EscapeDBUsage.ViewModels
             {
                 SetProperty(ref areDescsShown, value);
 
+                SetDescShown(value);
+            }
+        }
+
+        private void SetDescShown(bool value)
+        {
+            // Excel
+            if (NodesExcel != null)
+            {
                 foreach (var n in NodesExcel)
                 {
                     n.AreDescsShown = value;
+                    if (n.Nodes == null) continue;
                     foreach (var tab in n.Nodes)
                     {
                         tab.AreDescsShown = value;
+                        if (tab.Nodes == null) continue;
                         foreach (var table in tab.Nodes)
                         {
                             table.AreDescsShown = value;
+                            if (table.Nodes == null) continue;
                             foreach (var c in table.Nodes)
                             {
                                 c.AreDescsShown = value;
                             }
                         }
-                    } 
+                    }
                 }
             }
+
+            // Tables 
+            if (NodesTable!=null)
+            {
+                foreach (var n in NodesTable)
+                {
+                    n.AreDescsShown = value;
+                    if (n.Nodes == null) continue;
+                    foreach (var n2 in n.Nodes)
+                    {
+                        n2.AreDescsShown = value;
+                        if (n2.Nodes == null) continue;
+                        foreach (var n3 in n2.Nodes)
+                        {
+                            n3.AreDescsShown = value;
+                        }
+                    }
+                }
+            }
+
+            // Table - Columns
+            if (NodesTableColumns != null)
+            {
+                foreach (var n in NodesTableColumns)
+                {
+                    n.AreDescsShown = value;
+                    if (n.Nodes == null) continue;
+                    foreach (var n2 in n.Nodes)
+                    {
+                        n2.AreDescsShown = value;
+                        if (n2.Nodes == null) continue;
+                        foreach (var n3 in n2.Nodes)
+                        {
+                            n3.AreDescsShown = value;
+                            if (n3.Nodes == null) continue;
+                            foreach (var n4 in n3.Nodes)
+                            {
+                                n4.AreDescsShown = value;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         private string fullTextColumnDescription;

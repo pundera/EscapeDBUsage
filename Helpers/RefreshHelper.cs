@@ -40,7 +40,7 @@ namespace EscapeDBUsage.Helpers
                         if (!node.Nodes.Any(x => x.Name.Equals(rootEx.Name)))
                         {
                             var newExcel = new NodeDbTableToExcelToTab(evAgg) { Name = rootEx.Name, Description = rootEx.Description };
-                            newExcel.Nodes = new ObservableCollection<NodeTab>(rootEx.Nodes.ToList().Where(x => x.Nodes.Any(y => y.Name.Equals(node.Name))).ToList());
+                            newExcel.Nodes = new ObservableCollection<NodeTab>(rootEx.Nodes.ToList().Where(x => x.Nodes != null && x.Nodes.Any(y => y.Name.Equals(node.Name))).ToList());
                             node.Nodes.Add(newExcel);
                         }
                     }

@@ -470,7 +470,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" TextWrapping="Wrap" Width="280" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -490,7 +490,7 @@
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Margin="8,8" Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
-                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -502,7 +502,7 @@
                                         <Image Margin="8,8" Source="\Images\tab.png"/>
                                     </StackPanel>
                                     <TextBlock Margin="8,8" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
-                                    <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                    <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -528,7 +528,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" TextWrapping="Wrap" Width="280" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -548,7 +548,7 @@
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Margin="8,8" Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
-                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -560,7 +560,7 @@
                                         <Image Source="\Images\tab.png"/>
                                     </StackPanel>
                                     <TextBlock Margin="8,8" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
-                                    <TextBlock Margin="8,8" Text="{Binding Path=Description}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
+                                    <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -952,6 +952,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
+                        <CheckBox Content="Show descriptions in tree view" Height="Auto" Width="Auto" IsChecked="{Binding AreDescsShown, Mode=TwoWay}"/>
                     </StackPanel>
                     <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" >
                         <TreeView.Resources>
@@ -1000,6 +1001,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
+                        <CheckBox Content="Show descriptions in tree view" Height="Auto" Width="Auto" IsChecked="{Binding AreDescsShown, Mode=TwoWay}"/>
                     </StackPanel>
                     <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTableColumn}" ItemsSource="{Binding NodesTableColumns}" Margin="0,95,0,0" >
                         <TreeView.Resources>
