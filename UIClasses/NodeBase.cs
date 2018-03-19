@@ -18,10 +18,25 @@ namespace EscapeDBUsage.UIClasses
         public NodeBase(IEventAggregator evAgg)
         {
             EventAggregator = evAgg;
-            Remove = new DelegateCommand(DoRemove);
 
+            Remove = new DelegateCommand(DoRemove);
+        
             Up = new DelegateCommand(DoUp);
             Down = new DelegateCommand(DoDown);
+        }
+
+
+        private bool areDescsShown = true;
+        public bool AreDescsShown
+        {
+            get
+            {
+                return areDescsShown;
+            }
+            set
+            {
+                SetProperty(ref areDescsShown, value);
+            }
         }
 
         private void DoDown()

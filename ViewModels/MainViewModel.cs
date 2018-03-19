@@ -446,6 +446,36 @@ namespace EscapeDBUsage.ViewModels
             }
         }
 
+        private bool areDescsShown = true;
+        public bool AreDescsShown
+        {
+            get
+            {
+                return areDescsShown;
+            }
+            set
+            {
+                SetProperty(ref areDescsShown, value);
+
+                foreach (var n in NodesExcel)
+                {
+                    n.AreDescsShown = value;
+                    foreach (var tab in n.Nodes)
+                    {
+                        tab.AreDescsShown = value;
+                        foreach (var table in tab.Nodes)
+                        {
+                            table.AreDescsShown = value;
+                            foreach (var c in table.Nodes)
+                            {
+                                c.AreDescsShown = value;
+                            }
+                        }
+                    } 
+                }
+            }
+        }
+
         private string fullTextColumnDescription;
         public string FullTextColumnDescription
         {

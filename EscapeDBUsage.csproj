@@ -59,9 +59,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ModelClasses\DbSchema\SchemaBaseClass.cs" />
+    <Compile Include="ModelClasses\DbSchema\SchemaDbColumn.cs" />
+    <Compile Include="ModelClasses\DbSchema\SchemaDbTable.cs" />
+    <Compile Include="UIClasses\DatabaseSchema\NodeDbSchemaBase.cs" />
+    <Compile Include="UIClasses\DatabaseSchema\NodeDbSchemaColumn.cs" />
+    <Compile Include="UIClasses\DatabaseSchema\NodeDbSchemaTable.cs" />
+    <Compile Include="ViewModels\DatabaseSchemaViewModel.cs" />
+    <Compile Include="Views\DatabaseSchemaView.xaml.cs">
+      <DependentUpon>DatabaseSchemaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SprintsView.xaml.cs">
       <DependentUpon>SprintsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\DatabaseSchemaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,6 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\db-structure.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
