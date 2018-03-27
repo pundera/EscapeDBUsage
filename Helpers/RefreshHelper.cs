@@ -30,7 +30,7 @@ namespace EscapeDBUsage.Helpers
             nodes = new ObservableCollection<NodeDbTableToExcel>(orderedTables.Select((x) => new NodeDbTableToExcel(evAgg) { Name = x.Name, Description = x.Description, Nodes = new ObservableCollection<NodeDbTableToExcelToTab>() }).ToList());
 
             var allExcels = (root as NodeRoot).Nodes;
-
+             
             foreach (var node in nodes) // TABLES
             {
                 foreach (var table in allTables) // ALLTABLES
@@ -46,6 +46,7 @@ namespace EscapeDBUsage.Helpers
                     }
                 }
             }
+            
         }
 
         public static void RefreshTableColumns(IEventAggregator evAgg, NodeBase root, ref ObservableCollection<NodeDbTableColumnsToExcel> nodes)

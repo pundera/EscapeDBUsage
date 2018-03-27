@@ -1,4 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using EscapeDBUsage.UIClasses;
+using Prism.Mvvm;
+using System.Collections.ObjectModel;
 
 namespace EscapeDBUsage.ViewModels
 {
@@ -11,9 +13,23 @@ namespace EscapeDBUsage.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(MainViewModel mainViewModel)
         {
-
+            MainViewModel = mainViewModel;
         }
+
+        private MainViewModel mainViewModel;
+        public MainViewModel MainViewModel
+        {
+            get
+            {
+                return mainViewModel;
+            }
+            set
+            {
+                SetProperty(ref mainViewModel, value);
+            }
+        }
+
     }
 }

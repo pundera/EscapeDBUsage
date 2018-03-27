@@ -13,9 +13,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
                           
              mc:Ignorable="d">
-    <UserControl.Background>
-        <ImageBrush ImageSource="/EscapeDBUsage;component/Images/xxl-background2.png" Stretch="None"/>
-    </UserControl.Background>
+   
     <UserControl.Resources>
 
         <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
@@ -181,8 +179,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <converters:BoolToVisibilityConverter x:Key="VisibilityConverter" />
 
         <!-- EXCEL -->
         <HierarchicalDataTemplate x:Key="TreeTemplateExcel" DataType="{x:Type uiclasses:NodeExcel}" ItemsSource="{Binding Nodes}">
@@ -658,139 +654,13 @@
                     </Label>
                 </TabItem.Header>
                 <Grid>
-                    <StackPanel Orientation="Horizontal" Margin="10,10,10,0" Height="40" VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Horizontal">
-                                <Label Margin="0" Content="Sprint: "/>
-                            </StackPanel>
-                            <ComboBox Margin="0" Padding="0" Width="140" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint}" Background="Transparent">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <StackPanel.Resources>
-                                                <Style TargetType="{x:Type Border}">
-                                                    <Setter Property="CornerRadius" Value="8"/>
-                                                </Style>
-                                            </StackPanel.Resources>
-                                            <Label Padding="0">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Label Padding="2" Content="{Binding Number}" />
-                                                </StackPanel>
-                                            </Label>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Padding="2" Content="{Binding Name}" />
-                                                <Label Padding="2" Content="ver.: "/>
-                                                <Label Padding="2" Content="{Binding Version}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                        <Button Visibility="Collapsed" Margin="4,2" Padding="4,4" Command="{Binding Import}" Background="Transparent">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Images\import.png" />
-                                    <Label Content="Import" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Margin="4,2" Padding="8" Command="{Binding Load}" Background="Transparent">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">Load Data (Sprints and Tree Structures) from Storage</TextBlock>
-                                        <TextBlock>Loads tree structures form /Data/sprints.json</TextBlock>
-                                    </StackPanel>
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Margin="8" Source="\Images\load.png" />
-                                    <Label Content="Load" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding Save}" Background="Transparent">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">Save Data (Sprints and Tree Structures) to Storage</TextBlock>
-                                        <TextBlock>Saves tree structures to /Data/sprints.json</TextBlock>
-                                    </StackPanel>
-                                </ToolTip>
-                            </Button.ToolTip>                            
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Margin="8" Source="\Images\save.png" />
-                                    <Label Content="Save" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding ExpandAll}" Background="Transparent">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">Expand All Tree Nodes</TextBlock>
-                                    </StackPanel>
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="8" Source="\Images\expand-all.png"/>
-                                <Label Content="Expand All" />
-                            </StackPanel>
-                        </Button>
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding CollapseAll}" Background="Transparent">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">Collapse All Tree Nodes</TextBlock>
-                                    </StackPanel>
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="8" Source="\Images\collapse-all.png"/>
-                                <Label Content="Collapse All" />
-                            </StackPanel>
-                        </Button>
-                        <Button Margin="24,2" Padding="4,4" Command="{Binding AddExcel}" Background="Transparent">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <StackPanel>
-                                        <TextBlock FontWeight="Bold">Add Excel</TextBlock>
-                                        <TextBlock>Adds new excel node to tree structure</TextBlock>
-                                    </StackPanel>
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="8" Source="\Images\add-excel.png"/>
-                                <Label Content="Add Excel" />
-                            </StackPanel>
-                        </Button>
-                        <CheckBox Content="Show descriptions in tree view" Height="Auto" Width="Auto" IsChecked="{Binding AreDescsShown, Mode=TwoWay}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,55,0,0" Height="25" VerticalAlignment="Top">
-                        <Image Source="\Images\column.png" />
-                        <Label Content="Fulltext (columns)" FontWeight="Bold"/>
-                        <Label Content="Name" FontWeight="Light"/>
-                        <TextBox Padding="4" Text="{Binding FullTextColumnName, UpdateSourceTrigger=PropertyChanged}" Width="160" >
-                            <TextBox.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="8"/>
-                                </Style>
-                            </TextBox.Resources>
-                        </TextBox>
-                        <Label Content="or Description" FontWeight="Light"/>
-                        <TextBox Padding="4" Text="{Binding FullTextColumnDescription, UpdateSourceTrigger=PropertyChanged}" Width="112" />
-                    </StackPanel>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" MinWidth="280" />
                             <ColumnDefinition Width="*" MinWidth="280" />
                         </Grid.ColumnDefinitions>    
-                    <TreeView Grid.Column="0" Background="Transparent" ItemTemplate="{StaticResource ResourceKey=TreeTemplateExcel}" ItemsSource="{Binding NodesExcel}" Margin="0,95,0,0" Width="Auto" >
+                    <TreeView Grid.Column="0" Background="Transparent" ItemTemplate="{StaticResource ResourceKey=TreeTemplateExcel}" ItemsSource="{Binding NodesExcel}" Margin="0,0,4,0" Width="Auto" >
                         <TreeView.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="8" />
@@ -799,10 +669,10 @@
 
                     </TreeView>
 
-                        <GridSplitter Grid.Column="0" Margin="0,95,-5,0" Width="5" Background="#20006400"/>
+                        <GridSplitter Grid.Column="0" Margin="0,5,-6,5" Width="8" Background="#20006400"/>
 
                         <!-- NODE EDIT -->
-                        <StackPanel Grid.Column="1"  Margin="0,95,0,0" Orientation="Vertical">
+                        <StackPanel Grid.Column="1"  Margin="0,0,0,0" Orientation="Vertical">
                         <Grid Margin="0,0,0,0" Height="115" VerticalAlignment="Top" Visibility="{Binding ExcelVisible, Converter={StaticResource ResourceKey=VisibilityConverter}}">
                             <Image HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Source="/EscapeDBUsage;component/Images/excel.png"/>
                             <Button Command="{Binding SelectedExcel.Up}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Background="Transparent" >
@@ -943,18 +813,7 @@
                     </Label>
                 </TabItem.Header>
                 <Grid>
-                    <StackPanel Orientation="Horizontal" Margin="0" Height="50" VerticalAlignment="Top">
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding Refresh}" Background="Transparent">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Images\refresh.png" />
-                                    <Label Content="Create Specific Tree View..." />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <CheckBox Content="Show descriptions in tree view" Height="Auto" Width="Auto" IsChecked="{Binding AreDescsShown, Mode=TwoWay}"/>
-                    </StackPanel>
-                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,95,0,0" >
+                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTable}" ItemsSource="{Binding NodesTable}" Margin="0,0,0,0" >
                         <TreeView.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="8" />
@@ -992,18 +851,7 @@
                     </Label>
                 </TabItem.Header>
                 <Grid>
-                    <StackPanel Orientation="Horizontal" Margin="0" Height="50" VerticalAlignment="Top">
-                        <Button Margin="4,2" Padding="4,4" Command="{Binding RefreshColumns}" Background="Transparent">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Images\refresh.png" />
-                                    <Label Content="Create Specific Tree View... (COLUMNS)!" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <CheckBox Content="Show descriptions in tree view" Height="Auto" Width="Auto" IsChecked="{Binding AreDescsShown, Mode=TwoWay}"/>
-                    </StackPanel>
-                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTableColumn}" ItemsSource="{Binding NodesTableColumns}" Margin="0,95,0,0" >
+                    <TreeView ItemTemplate="{StaticResource ResourceKey=TreeTemplateTableColumn}" ItemsSource="{Binding NodesTableColumns}" Margin="0,0,0,0" >
                         <TreeView.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="8" />

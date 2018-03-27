@@ -1,10 +1,81 @@
-﻿<Window x:Class="EscapeDBUsage.Views.MainWindow"
+﻿<ribbon:RibbonWindow x:Class="EscapeDBUsage.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:ribbon="urn:fluent-ribbon"             
+                     
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="609" Width="800" Icon="/EscapeDBUsage;component/Images/hearts.ico">
+                     
+                     
+        Title="{Binding Title}" Height="609" Width="800" Icon="/EscapeDBUsage;component/Images/hearts.ico" TitleForeground="#FF033A19">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <Grid.Background>
+            <ImageBrush ImageSource="/EscapeDBUsage;component/Images/xxl-background.png" Stretch="None"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ribbon:Ribbon Grid.Row="0">
+            <ribbon:RibbonTabItem Header="Data">
+                <ribbon:RibbonGroupBox Header="Sprints">
+                    <ribbon:Button Margin="4,0" Header="Load" Icon="{StaticResource i-load}" LargeIcon="{StaticResource i-load}"  Command="{Binding MainViewModel.Load}">
+                    </ribbon:Button>
+                    <ribbon:ComboBox Padding="2" Height="86" Margin="4,0,4,13" Header="Sprint:" Width="180" ItemsSource="{Binding MainViewModel.Sprints}" SelectedItem="{Binding MainViewModel.SelectedSprint}" IsEditable="False" >
+                        <ribbon:ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="8"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label Padding="0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Padding="2" Content="{Binding Number}" />
+                                        </StackPanel>
+                                    </Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Padding="2" Content="{Binding Name}" />
+                                        <Label Padding="2" Content="ver.: "/>
+                                        <Label Padding="2" Content="{Binding Version}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ribbon:ComboBox.ItemTemplate>
+                    </ribbon:ComboBox>
+                    <ribbon:Button Margin="4,0" Header="Save" Icon="{StaticResource i-save}" LargeIcon="{StaticResource i-save}"  Command="{Binding MainViewModel.Save}" OverridesDefaultStyle="True">
+                    </ribbon:Button>
+                </ribbon:RibbonGroupBox>
+                <ribbon:RibbonGroupBox Header="Result of an Operation... and LOG">
+                    <Grid Margin="4,10">
+                        <Image Width="240" Height="40" Source="{Binding MainViewModel.SuccessImageSource, Converter={StaticResource ResourceKey=ImageFromSourceConverter}}" />
+                    </Grid>
+                    <ribbon:Button Header="Show Log" Icon="{StaticResource i-log}" LargeIcon="{StaticResource i-log}" Command="{Binding MainViewModel.ShowLog}"/>
+                </ribbon:RibbonGroupBox>
+            </ribbon:RibbonTabItem>
+            <ribbon:RibbonTabItem Header="Tree View">
+                <ribbon:RibbonGroupBox Header="Nodes Manipulation">
+                    <ribbon:Button Header="Expand All" Command="{Binding MainViewModel.ExpandAll}" LargeIcon="{StaticResource i-expand}" Icon="{StaticResource i-expand}"/>
+                    <ribbon:Button Header="Collapse All" Command="{Binding MainViewModel.CollapseAll}" LargeIcon="{StaticResource i-collapse}" Icon="{StaticResource i-collapse}"/>
+                </ribbon:RibbonGroupBox>
+                <ribbon:RibbonGroupBox Header="Adding">
+                    <ribbon:Button Header="Add Excel" Command="{Binding MainViewModel.AddExcel}" LargeIcon="{StaticResource i-excel}" Icon="{StaticResource i-excel}" />
+                </ribbon:RibbonGroupBox>
+                <ribbon:RibbonGroupBox Header="Fulltext">
+                    <ribbon:TextBox Header="Column Name:" Text="{Binding MainViewModel.FullTextColumnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="160"/>
+                    <ribbon:TextBox Header="Column Description:" Text="{Binding MainViewModel.FullTextColumnDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="160"/>
+                    <ribbon:Button Header="Reset filter!" LargeIcon="{StaticResource i-erase}" Icon="{StaticResource i-erase}" Command="{Binding MainViewModel.EraseFulltext}" />
+                </ribbon:RibbonGroupBox>
+                <ribbon:RibbonGroupBox Header="Descriptions in Tree Views">
+                    <ribbon:CheckBox Header="Show descriptions" Height="Auto" Width="Auto" IsChecked="{Binding MainViewModel.AreDescsShown, Mode=TwoWay}"/>
+                </ribbon:RibbonGroupBox>
+                <ribbon:RibbonGroupBox Header="Specific (other) Tree Views">
+                    <ribbon:Button Header="Create specific tree views..." Height="Auto" Width="Auto" Command="{Binding MainViewModel.Refresh}" Icon="{StaticResource i-refresh}" LargeIcon="{StaticResource i-refresh}"/>
+                </ribbon:RibbonGroupBox>            </ribbon:RibbonTabItem>
+        </ribbon:Ribbon>
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion" >
+        </ContentControl>
     </Grid>
-</Window>
+</ribbon:RibbonWindow>

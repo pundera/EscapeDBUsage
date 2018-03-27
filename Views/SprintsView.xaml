@@ -73,8 +73,7 @@
 
     </UserControl.Resources>
     <Grid Margin="0,0,0,0">
-        <Label FontWeight="Bold" Content="Sprints" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ListBox Margin="10,41,10,53" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint, Mode=TwoWay}">
+        <ListBox Margin="10" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint, Mode=TwoWay}">
             <ListBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="8" />
@@ -111,7 +110,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Command="{Binding SaveSprints}" FontWeight="Bold" Background="LightGreen" Content="Save" Margin="0,0,10,10" VerticalAlignment="Bottom" IsDefault="True" HorizontalAlignment="Right" Width="128" Height="38"/>
 
     </Grid>
 </UserControl>

@@ -68,6 +68,10 @@ namespace EscapeDBUsage.Helpers
 
         internal static bool SaveSprints(ObservableCollection<UISprint> sprints)
         {
+            Logger.Logger.log.Info("Saving sprints...");
+
+            var ret = false;
+
             var newSprints = new Sprints()
             {
                 List = sprints.Select(x => new Sprint()
@@ -108,19 +112,28 @@ namespace EscapeDBUsage.Helpers
                 }).ToList()
             };
 
-            var exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            var dataPath = string.Format("{0}\\Data", exePath);
-            var data = string.Format("{0}\\sprints.json", dataPath);
+            //var exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            //var dataPath = string.Format("{0}\\Data", exePath);
+            var data = FoldersHelper.DataPath; //string.Format("{0}\\sprints.json", dataPath);
 
             var json = JsonConvert.SerializeObject(newSprints, Formatting.Indented);
             var fi = new FileInfo(data);
 
-            using (var stream = fi.CreateText())
+            try
             {
-                stream.Write(json);
+                using (var stream = fi.CreateText())
+                {
+                    stream.Write(json);
+                }
+                ret = true;
+                Logger.Logger.log.Info("Saving sprints -> SUCCESS!");
+                return ret;
+            } catch (Exception ex)
+            {
+                Logger.Logger.log.Error("Error saving sprints...", ex);
+                ret = false;
+                return ret;
             }
-
-            return true;
         }
     }
 }

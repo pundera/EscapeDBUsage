@@ -4,13 +4,22 @@ using Prism.Modularity;
 using Autofac;
 using Prism.Autofac;
 using Prism.Regions;
+using Prism.Mvvm;
+using EscapeDBUsage.ViewModels;
 
 namespace EscapeDBUsage
 {
     class Bootstrapper : AutofacBootstrapper
     {
-        protected override DependencyObject CreateShell()
+        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
+            base.ConfigureContainerBuilder(builder);
+            // just one instance in all application - combos etc..
+            builder.RegisterType<MainViewModel>().As<MainViewModel>().SingleInstance();
+        }
+
+        protected override DependencyObject CreateShell()
+        {            
             return Container.Resolve<MainWindow>();
         }
 
@@ -30,5 +39,12 @@ namespace EscapeDBUsage
             var moduleCatalog = (ModuleCatalog)ModuleCatalog;
             //moduleCatalog.AddModule(typeof(YOUR_MODULE));
         }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+            ViewModelLocationProvider.Register<MainWindow, MainWindowViewModel>();
+        }
+
     }
 }

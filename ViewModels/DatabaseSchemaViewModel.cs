@@ -23,7 +23,15 @@ namespace EscapeDBUsage.ViewModels
                         new NodeDbSchemaColumn()
                         {
                             Name = "My super truper COLUMN", Description = "ljdfhcjfe vhjkefvh kfeh vkjefdh kjdfh vkefjdh"
-                        }
+                        },
+                        new NodeDbSchemaColumn()
+                        {
+                            Name = "COLUMN 002", Description = "Aaaaa aaaa"
+                        },
+                        new NodeDbSchemaColumn()
+                        {
+                            Name = "COLUMN 003", Description = "XXXXXXX xxxxxx"
+                        },
                     }
                 },
                 new NodeDbSchemaTable()
@@ -33,8 +41,20 @@ namespace EscapeDBUsage.ViewModels
                     {
                         new NodeDbSchemaColumn()
                         {
-                            Name = "My super 002 truper COLUMN", Description = "mlns cd jjcdljchdjcd clj ldckj dlcj dklj cldkj cljdfhcjfe vhjkefvh kfeh vkjefdh kjdfh vkefjdh"
-                        }
+                            Name = "My truper COLUMN", Description = "mlns cd jjcdljchdjcd clj ldckj dlcj dklj cldkj cljdfhcjfe vhjkefvh kfeh vkjefdh kjdfh vkefjdh"
+                        },
+                        new NodeDbSchemaColumn()
+                        {
+                            Name = "COLUMN x002", Description = "Cosi s cd jjcdljchdjcd clj ldckj dlcj dklj cldkj cljdfhcjfe vhjkefvh kfeh vkjefdh kjdfh vkefjdh"
+                        },
+                        new NodeDbSchemaColumn()
+                        {
+                            Name = "COLUMN x003", Description = "KKkkkkk .... dlcj dklj cldkj cljdfhcjfe vhjkefvh kfeh vkjefdh kjdfh vkefjdh"
+                        },
+                        new NodeDbSchemaColumn()
+                        {
+                            Name = "COLUMN x004", Description = "MMMMmmmmm ldckj dlcj dklj cldkj cljdfhcjfe vhjkefvh kfeh vkjefdh kjdfh vkefjdh"
+                        },
                     }
 
                 }

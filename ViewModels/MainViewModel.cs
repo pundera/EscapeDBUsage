@@ -8,9 +8,11 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -66,7 +68,7 @@ namespace EscapeDBUsage.ViewModels
                 if (n is NodeDbColumn)
                 {
                     SelectedDbColumn = n as NodeDbColumn;
-                    SelectedDbTable = (n  as NodeDbColumn).NodeDbTable;
+                    SelectedDbTable = (n as NodeDbColumn).NodeDbTable;
                     SelectedTab = (n as NodeDbColumn).NodeDbTable.NodeTab;
                     SelectedExcel = (n as NodeDbColumn).NodeDbTable.NodeTab.NodeExcel;
                     ExcelVisible = true;
@@ -78,6 +80,19 @@ namespace EscapeDBUsage.ViewModels
             Import = new DelegateCommand(() => DoImport());
             Save = new DelegateCommand(() => DoSave());
             Load = new DelegateCommand(() => DoLoad());
+
+            ShowLog = new DelegateCommand(() =>
+            {
+                Process process = new Process();
+                // Configure the process using the StartInfo properties.
+                process.StartInfo.FileName = @"c:\!! LOGs\EscapeDBUsage.log";
+                //process.StartInfo.Arguments = @"c:\!! LOGs\EscapeDBUsage.log";
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                process.Start();
+                //process.WaitForExit();// Waits here for the process to exit.
+            });
+
+
             Refresh = new DelegateCommand(() => DoRefresh());
             RefreshColumns = new DelegateCommand(() => DoRefreshColumns());
 
@@ -88,39 +103,32 @@ namespace EscapeDBUsage.ViewModels
 
             AddExcel = new DelegateCommand(() => DoAddExcel());
 
+            AddTables = new DelegateCommand(() => DoAddTables());
+
             Task.Run(() =>
             {
                 DoLoad();
             });
         }
 
+        private void DoAddTables()
+        {
+            // 
+        }
+
+        public ICommand EraseFulltext { get { return (new DelegateCommand(() => DoEraseFulltext())); } }
+        
+        private void DoEraseFulltext() {
+            FullTextColumnName = null;
+            FullTextColumnDescription = null;
+            CommonErasingFilter();
+        }
+
         private void DoAddExcel()
         {
-            var newExcel = new NodeExcel(eventAgg, root); 
-            NodesExcel.Add(newExcel);
-        }
-
-        private void DoSaveSprints()
-        {
-            var b = SaveHelper.SaveSprints(Sprints);
-        }
-
-        private UISprint selectedSprint;
-        public UISprint SelectedSprint
-        {
-            get { return selectedSprint; }
-            set
-            {
-                SetProperty(ref selectedSprint, value);
-                if (selectedSprint != null)
-                {
-                    root = selectedSprint.Root;
-                    NodesExcel = selectedSprint.Root.Nodes;
-                    if (NodesExcel!=null && NodesExcel.Count>0) SelectedExcel = NodesExcel.First();
-
-                    SetDescShown(AreDescsShown);
-                }
-            }
+            var newExcel = new NodeExcel(eventAgg, root);
+            newExcel.AreDescsShown = AreDescsShown;
+            NodesExcel.Insert(0, newExcel);
         }
 
         private NodeDbTableRoot rootTables;
@@ -134,6 +142,9 @@ namespace EscapeDBUsage.ViewModels
 
             // slow?? :-)
             SetDescShown(AreDescsShown);
+
+            //third tree view... (Tables-Columns -> Excels -> Sheets)
+            DoRefreshColumns();
         }
 
         private void DoRefreshColumns()
@@ -148,7 +159,74 @@ namespace EscapeDBUsage.ViewModels
 
         private void DoSave()
         {
-            var b = SaveHelper.SaveSprints(Sprints);
+            var success = SaveHelper.SaveSprints(Sprints);
+            if (success)
+            {
+                Success();
+            }
+            else
+            {
+                Error();
+            }
+        }
+
+        private void Error()
+        {
+            Task.Run(() =>
+            {
+                var s = "pack://application:,,,/Images/err{0:00}.png";
+                for (var ix = 0; ix < 10; ix++)
+                {
+                    SuccessImageSource = string.Format(s, 9 - ix);
+                    Thread.Sleep(25);
+                }
+                Thread.Sleep(800);
+                SuccessImageSource = string.Format(s, 10);
+                Thread.Sleep(300);
+                SuccessImageSource = string.Format(s, 0);
+                Thread.Sleep(800);
+                SuccessImageSource = string.Format(s, 10);
+                Thread.Sleep(300);
+                SuccessImageSource = string.Format(s, 0);
+                for (var ix = 0; ix < 10; ix++)
+                {
+                    SuccessImageSource = string.Format(s, ix);
+                    Thread.Sleep(25);
+                }
+                SuccessImageSource = string.Format(s, 10);
+            });
+        }
+
+        private void Success()
+        {
+            Task.Run(() =>
+            {
+                var s = "pack://application:,,,/Images/succ{0:00}.png";
+                for (var ix = 0; ix < 19; ix++)
+                {
+                    SuccessImageSource = string.Format(s, 18 - ix);
+                    Thread.Sleep(25);
+                }
+                Thread.Sleep(400);
+                for (var ix = 0; ix < 19; ix++)
+                {
+                    SuccessImageSource = string.Format(s, ix);
+                    Thread.Sleep(25);
+                }
+            });
+        }
+
+        private string successImageSource = "pack://application:,,,/Images/succ18.png";
+        public string SuccessImageSource
+        {
+            get
+            {
+                return successImageSource;
+            }
+            set
+            {
+                SetProperty(ref successImageSource, value);
+            }
         }
 
         private void DoLoad()
@@ -157,11 +235,16 @@ namespace EscapeDBUsage.ViewModels
             var listOfSprints = new ObservableCollection<UISprint>();
 
             //root = new NodeRoot(eventAgg) { Name = "ROOT", Description = "just help instance (node)..." };
-            LoadHelper.Load(ref listOfSprints, eventAgg);
+            var success = LoadHelper.Load(ref listOfSprints, eventAgg);
             //NodesExcel = list;
             //root.Nodes = NodesExcel;
-            Sprints = listOfSprints;
-            SelectedSprint = listOfSprints.Last();
+            if (success)
+            {
+                Sprints = listOfSprints;
+                SelectedSprint = listOfSprints.Last();
+                Success();
+            }
+            else Error(); 
         }
 
         private bool excelVisible;
@@ -321,12 +404,15 @@ namespace EscapeDBUsage.ViewModels
         public ICommand Import { get; private set; }
         public ICommand Save { get; private set; }
         public ICommand Load { get; private set; }
+        public ICommand ShowLog { get; private set; }
         public ICommand Refresh { get; private set; }
         public ICommand RefreshColumns { get; private set; }
         public ICommand ExpandAll { get; private set; }
         public ICommand CollapseAll { get; private set; }
 
         public ICommand SaveSprints { get; private set; }
+
+        public ICommand AddTables { get; private set; }
 
         //AddExcel
         public ICommand AddExcel { get; private set; }
@@ -405,10 +491,13 @@ namespace EscapeDBUsage.ViewModels
         {
             foreach (var e in NodesExcel)
             {
+                e.IsVisible = true;
                 if (e.Nodes != null) foreach (var tab in e.Nodes)
                     {
+                        tab.IsVisible = true;
                         if (tab.Nodes != null) foreach (var table in tab.Nodes)
                             {
+                                table.IsVisible = true;
                                 if (table.Nodes != null) foreach (var c in table.Nodes)
                                     {
                                         c.IsVisible = true;
@@ -560,6 +649,29 @@ namespace EscapeDBUsage.ViewModels
         private ObservableCollection<UISprint> sprints;
         public ObservableCollection<UISprint> Sprints { get { return sprints; } set { SetProperty(ref sprints, value); } }
 
+
+        private UISprint selectedSprint;
+        public UISprint SelectedSprint
+        {
+            get { return selectedSprint; }
+            set
+            {
+                SetProperty(ref selectedSprint, value);
+                if (selectedSprint != null)
+                {
+                    root = selectedSprint.Root;
+                    NodesExcel = selectedSprint.Root.Nodes;
+                    if (NodesExcel != null && NodesExcel.Count > 0) SelectedExcel = NodesExcel.First();
+
+                    SetDescShown(AreDescsShown);
+                }
+            }
+        }
+
+        private void DoSaveSprints()
+        {
+            var b = SaveHelper.SaveSprints(Sprints);
+        }
     }
 
     public enum FilterType
