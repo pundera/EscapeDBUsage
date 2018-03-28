@@ -196,43 +196,50 @@
                 </Style>
             </HierarchicalDataTemplate.ItemContainerStyle>
             <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="\Images\excel.png" Width="32"/>
-                    </Grid>
-                    <TextBlock Margin="8" Text="{Binding Path=Name}" Width="Auto" FontWeight="Bold"/>
-                </StackPanel>
-                <Button Margin="8" Padding="4" Command="{Binding AddTab}" Background="Transparent">
-                    <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold">Add Sheet</TextBlock>
-                                <TextBlock>To this excel adds a new spread sheet</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Source="\Images\excel.png" Width="24"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="6" Text="{Binding Path=Name}" FontWeight="Bold" Width="312"/>
+                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                        <Button Margin="2" Padding="2" Command="{Binding AddTab}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Add Sheet</TextBlock>
+                                        <TextBlock>To this excel adds a new spread sheet</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Margin="2" Source="\Images\add-tab.png" Width="24"/>
                             </StackPanel>
-                        </ToolTip>
-                    </Button.ToolTip>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="8" Source="\Images\add-tab.png" Width="24"/>
-                    </StackPanel>
-                </Button>
-                <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
-                    <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold">Remove Excel</TextBlock>
-                                <TextBlock>Removes this excel</TextBlock>
+                        </Button>
+                        <Button Margin="2" Padding="2" Command="{Binding Remove}" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold">Remove Excel</TextBlock>
+                                        <TextBlock>Removes this excel</TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Margin="2" Source="\Images\remove.png" Width="24"/>
                             </StackPanel>
-                        </ToolTip>
-                    </Button.ToolTip>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="8" Source="\Images\remove.png" Width="24"/>
+                        </Button>
                     </StackPanel>
-                </Button>
+                    <TextBlock Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="330" FontWeight="Light"/>
+                </Grid>
             </StackPanel>
+            <!-- Sheet -->
             <HierarchicalDataTemplate.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type uiclasses:NodeTab}" ItemsSource="{Binding Nodes}">
                     <HierarchicalDataTemplate.ItemContainerStyle>
@@ -248,32 +255,21 @@
                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                         </Style>
                     </HierarchicalDataTemplate.ItemContainerStyle>
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Row="0" Grid.Column="0" Margin="2" Source="\Images\tab.png" Width="32"/>
-                                <TextBlock Margin="8" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Name}" FontWeight="Bold"/>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" Text="{Binding Path=Description}" FontWeight="Light" Width="540" TextWrapping="Wrap" />
-                            </Grid>
-                        </StackPanel>
-
+                    <StackPanel Orientation="Horizontal">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <Button Margin="8" Padding="4" Command="{Binding AddTable}" Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0" Source="\Images\tab.png" Width="24"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Margin="6" Text="{Binding Path=Name}" FontWeight="Bold" Width="252"/>
+                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                                <Button Margin="2" Padding="2" Command="{Binding AddTable}" Background="Transparent">
                                     <Button.ToolTip>
                                         <ToolTip>
                                             <StackPanel>
@@ -282,11 +278,11 @@
                                             </StackPanel>
                                         </ToolTip>
                                     </Button.ToolTip>
-                                    <Image Margin="8" Source="\Images\add-table.png" Width="24"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Margin="2" Source="\Images\add-table.png" Width="24"/>
+                                    </StackPanel>
                                 </Button>
-                                
-                                
-                                <Button Margin="8" Padding="4" Command="{Binding AddTables}" Background="Transparent">
+                                <Button Margin="2" Padding="2" Command="{Binding AddTables}" Background="Transparent">
                                     <Button.ToolTip>
                                         <ToolTip>
                                             <StackPanel>
@@ -296,11 +292,9 @@
                                             </StackPanel>
                                         </ToolTip>
                                     </Button.ToolTip>
-                                    <Image Margin="8" Source="\Images\add-tables.png" Width="24"/>
+                                    <Image Margin="2" Source="\Images\add-tables.png" Width="24"/>
                                 </Button>
-                                
-                                
-                                <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
+                                <Button Margin="2" Padding="2" Command="{Binding Remove}" Background="Transparent">
                                     <Button.ToolTip>
                                         <ToolTip>
                                             <StackPanel>
@@ -310,13 +304,14 @@
                                         </ToolTip>
                                     </Button.ToolTip>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Margin="8" Source="\Images\remove.png" Width="24"/>
+                                        <Image Margin="2" Source="\Images\remove.png" Width="24"/>
                                     </StackPanel>
                                 </Button>
-                                
                             </StackPanel>
+                            <TextBlock Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="330" FontWeight="Light"/>
                         </Grid>
                     </StackPanel>
+                    <!-- DB Table -->
                     <HierarchicalDataTemplate.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type uiclasses:NodeDbTable}" ItemsSource="{Binding Nodes}">
                             <HierarchicalDataTemplate.ItemContainerStyle>
@@ -332,68 +327,72 @@
                                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                                 </Style>
                             </HierarchicalDataTemplate.ItemContainerStyle>
-                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
                                 <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Grid.Row="0" Margin="2" Source="\Images\table.png" Width="32"/>
-                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="4" Text="{Binding Path=Name}" Width="Auto" FontWeight="Bold" />
-                                    <TextBlock Grid.Row="2" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="520" />
-                                </Grid>
-
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <Button Margin="8" Padding="4" Command="{Binding AddColumn}" Background="Transparent">
-                                        <Button.ToolTip>
-                                            <ToolTip>
-                                                <StackPanel>
-                                                    <TextBlock FontWeight="Bold">Add DB column</TextBlock>
-                                                    <TextBlock>To this DB table adds a new DB column</TextBlock>
-                                                </StackPanel>
-                                            </ToolTip>
-                                        </Button.ToolTip>
-                                        <Image Margin="8" Source="\Images\add-column.png" Width="24"/>
-                                    </Button>
-                                    <Button Margin="8" Padding="4" Command="{Binding AddColumns}" Background="Transparent">
-                                        <Button.ToolTip>
-                                            <ToolTip>
-                                                <StackPanel>
-                                                    <TextBlock FontWeight="Bold">Add DB Column(s)</TextBlock>
-                                                    <TextBlock>To this DB table adds a new DB column(s)</TextBlock>
-                                                    <TextBlock>DB Schema - tables and columns are stored offline!</TextBlock>
-                                                </StackPanel>
-                                            </ToolTip>
-                                        </Button.ToolTip>
-                                        <Image Margin="8" Source="\Images\add-columns.png" Width="24"/>
-                                    </Button>
-                                    <Button Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
-                                        <Button.ToolTip>
-                                            <ToolTip>
-                                                <StackPanel>
-                                                    <TextBlock FontWeight="Bold">Remove DB Table</TextBlock>
-                                                    <TextBlock>Removes this DB table</TextBlock>
-                                                </StackPanel>
-                                            </ToolTip>
-                                        </Button.ToolTip>
-                                        <Image Margin="8" Source="\Images\remove.png" Width="24"/>
-                                    </Button>
+                                    <Image Grid.Row="0" Grid.Column="0" Source="\Images\table.png" Width="24"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="6" Text="{Binding Path=Name}" FontWeight="Bold" Width="232"/>
+                                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                                        <Button Margin="2" Padding="2" Command="{Binding AddColumn}" Background="Transparent">
+                                            <Button.ToolTip>
+                                                <ToolTip>
+                                                    <StackPanel>
+                                                        <TextBlock FontWeight="Bold">Add DB column</TextBlock>
+                                                        <TextBlock>To this DB table adds a new DB column</TextBlock>
+                                                    </StackPanel>
+                                                </ToolTip>
+                                            </Button.ToolTip>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Margin="2" Source="\Images\add-column.png" Width="24"/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Margin="2" Padding="2" Command="{Binding AddColumns}" Background="Transparent">
+                                            <Button.ToolTip>
+                                                <ToolTip>
+                                                    <StackPanel>
+                                                        <TextBlock FontWeight="Bold">Add DB Column(s)</TextBlock>
+                                                        <TextBlock>To this DB table adds a new DB column(s)</TextBlock>
+                                                        <TextBlock>DB Schema - tables and columns are stored offline!</TextBlock>
+                                                    </StackPanel>
+                                                </ToolTip>
+                                            </Button.ToolTip>
+                                            <Image Margin="2" Source="\Images\add-columns.png" Width="24"/>
+                                        </Button>
+                                        <Button Margin="2" Padding="2" Command="{Binding Remove}" Background="Transparent">
+                                            <Button.ToolTip>
+                                                <ToolTip>
+                                                    <StackPanel>
+                                                        <TextBlock FontWeight="Bold">Remove DB Table</TextBlock>
+                                                        <TextBlock>Removes this DB table</TextBlock>
+                                                    </StackPanel>
+                                                </ToolTip>
+                                            </Button.ToolTip>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Margin="2" Source="\Images\remove.png" Width="24"/>
+                                            </StackPanel>
+                                        </Button>
                                     </StackPanel>
+                                    <TextBlock Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" 
+                                               Grid.Row="1" 
+                                               Grid.Column="0" 
+                                               Grid.ColumnSpan="3" 
+                                               Margin="2" 
+                                               Text="{Binding Path=Description}" 
+                                               TextWrapping="Wrap" 
+                                               Width="330" 
+                                               FontWeight="Light" />
                                 </Grid>
                             </StackPanel>
+                            <!-- DB Column -->
                             <HierarchicalDataTemplate.ItemTemplate>
-                                
                                 <DataTemplate DataType="{x:Type uiclasses:NodeDbColumn}">
                                     <DataTemplate.Resources>
                                         <Style>
@@ -405,40 +404,35 @@
                                         </Style.Resources>
                                         </Style>
                                     </DataTemplate.Resources>
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                    <Image Margin="2" Source="\Images\column.png" Width="32"/>
-                                                    <Label FontWeight="Light" Content="Column Name:"/>
-                                                    <TextBlock Padding="5" Text="{Binding Path=Name}" FontWeight="Bold"/>
-                                                    <Label FontWeight="Light" Content="DB Name:"/>
-                                                    <TextBlock Padding="5" Text="{Binding Path=DBColumnName}" FontWeight="Bold"/>
-                                                </StackPanel>
-                                            </Grid>
-                                            <Label Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" Content="Description:"/>
-                                            <TextBlock Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}"  Text="{Binding Path=Description}" FontWeight="Light" Width="500" TextWrapping="Wrap" />
-                                        </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="1" Margin="8" Padding="4" Command="{Binding Remove}" Background="Transparent">
-                                                <Button.ToolTip>
-                                                    <ToolTip>
-                                                        <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Remove DB Column</TextBlock>
-                                                            <TextBlock>Removes this DB column</TextBlock>
-                                                        </StackPanel>
-                                                    </ToolTip>
-                                                </Button.ToolTip>
-                                                <Image Margin="8" Source="\Images\remove.png" Width="24"/>
-                                            </Button>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Grid.Column="0" Source="\Images\column.png" Width="24"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Margin="6" Text="{Binding Path=Name}" FontWeight="Bold" Width="280"/>
+                                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                                                <Button Margin="2" Padding="2" Command="{Binding Remove}" Background="Transparent">
+                                                    <Button.ToolTip>
+                                                        <ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">Remove DB Column</TextBlock>
+                                                                <TextBlock>Removes this DB column</TextBlock>
+                                                            </StackPanel>
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Margin="2" Source="\Images\remove.png" Width="24"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                            <TextBlock Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="2" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="330" FontWeight="Light"/>
                                         </Grid>
                                     </StackPanel>
                                 </DataTemplate>
@@ -462,7 +456,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="8,8" Source="\Images\table.png"/>
+                        <Image Margin="2" Height="24" Source="\Images\table.png"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
@@ -482,7 +476,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Margin="8,8" Source="\Images\excel.png"/>
+                                <Image Margin="2" Height="24" Source="\Images\excel.png"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Margin="8,8" Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
@@ -495,7 +489,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Margin="8,8" Source="\Images\tab.png"/>
+                                        <Image Margin="2" Height="24" Source="\Images\tab.png"/>
                                     </StackPanel>
                                     <TextBlock Margin="8,8" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
                                     <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
@@ -520,11 +514,11 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="\Images\column.png"/>
+                        <Image Margin="2" Height="24" Source="\Images\column.png"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" TextWrapping="Wrap" Width="280" />
+                        <TextBlock Margin="2" Height="24" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                        <TextBlock Margin="2" Height="24" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" TextWrapping="Wrap" Width="280" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -540,7 +534,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Margin="8,8" Source="\Images\excel.png"/>
+                                <Image Margin="2" Height="24" Source="\Images\excel.png"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Margin="8,8" Text="{Binding Path=Name}" TextAlignment="Left" FontWeight="Bold" Width="280" TextWrapping="Wrap"/>
@@ -553,7 +547,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="\Images\tab.png"/>
+                                        <Image Margin="2" Height="24" Source="\Images\tab.png"/>
                                     </StackPanel>
                                     <TextBlock Margin="8,8" Text="{Binding Path=Name}" FontWeight="Bold" Width="180" TextWrapping="Wrap"/>
                                     <TextBlock Margin="8,8" Text="{Binding Path=Description}" Visibility="{Binding AreDescsShown, Converter={StaticResource ResourceKey=VisibilityConverter}}" FontWeight="Light" TextWrapping="Wrap" Width="280" />
@@ -646,8 +640,8 @@
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\excel.png"/>
-                                <TextBlock FontWeight="Bold" Width="44" TextWrapping="Wrap" Text="Excel Tab Table Column" >
+                                <Image Height="24" Source="\Images\excel.png"/>
+                                <TextBlock FontWeight="Bold" Text="Excel Tab Table Column" >
                                 </TextBlock>
                             </StackPanel>
                         </Label.Content>
@@ -657,8 +651,8 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" MinWidth="280" />
-                            <ColumnDefinition Width="*" MinWidth="280" />
+                            <ColumnDefinition Width="3*" MinWidth="220" />
+                            <ColumnDefinition Width="5*" MinWidth="220" />
                         </Grid.ColumnDefinitions>    
                     <TreeView Grid.Column="0" Background="Transparent" ItemTemplate="{StaticResource ResourceKey=TreeTemplateExcel}" ItemsSource="{Binding NodesExcel}" Margin="0,0,4,0" Width="Auto" >
                         <TreeView.Resources>
@@ -806,8 +800,8 @@
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\table.png"/>
-                                <TextBlock FontWeight="Bold" Width="42" TextWrapping="Wrap" Text="Table Excel Tab" />
+                                <Image Height="24" Source="\Images\table.png"/>
+                                <TextBlock FontWeight="Bold" Text="Table Excel Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
@@ -844,8 +838,8 @@
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\column.png"/>
-                                <TextBlock FontWeight="Bold" Width="44" TextWrapping="Wrap" Text="Column Excel Tab" />
+                                <Image Height="24" Source="\Images\column.png"/>
+                                <TextBlock FontWeight="Bold" Text="Column Excel Tab" />
                             </StackPanel>
                         </Label.Content>
                     </Label>
@@ -879,7 +873,7 @@
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\sprints.png"/>
+                                <Image Height="24" Source="\Images\sprints.png"/>
                                 <Label FontWeight="Bold" Content="Sprints" />
                             </StackPanel>
                         </Label.Content>
@@ -902,7 +896,7 @@
                     <Label>
                         <Label.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="\Images\db-structure.png"/>
+                                <Image Height="24" Source="\Images\db-structure.png"/>
                                 <Label FontWeight="Bold" Content="DB Structure" />
                             </StackPanel>
                         </Label.Content>

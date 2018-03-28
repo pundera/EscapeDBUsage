@@ -8,10 +8,10 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
                      
                      
-        Title="{Binding Title}" Height="609" Width="800" Icon="/EscapeDBUsage;component/Images/hearts.ico" TitleForeground="#FF033A19">
+        Title="{Binding Title}" Height="700" Width="900" Icon="/EscapeDBUsage;component/Images/hearts.ico" TitleForeground="#FF033A19" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/EscapeDBUsage;component/Images/xxl-background.png" Stretch="None"/>
+            <ImageBrush ImageSource="/EscapeDBUsage;component/Images/xxl-background2.png" Stretch="None"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

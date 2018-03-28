@@ -26,11 +26,11 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="8,8" Source="\Images\table.png"/>
+                        <Image Height="24" Margin="2" Source="\Images\table.png"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                        <TextBlock Margin="8,8" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                        <TextBlock Margin="2" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                        <TextBlock Margin="2" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -39,11 +39,11 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <Image Margin="8,8" Source="\Images\column.png"/>
+                                <Image Height="24" Margin="2" Source="\Images\column.png"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock Margin="8,8" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
-                                <TextBlock Margin="8,8" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
+                                <TextBlock Margin="2" TextAlignment="Left" Text="{Binding Path=Name}" Width="180" TextWrapping="Wrap"/>
+                                <TextBlock Margin="2" Text="{Binding Path=Description}" TextWrapping="Wrap" Width="280" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

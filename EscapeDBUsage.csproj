@@ -301,5 +301,8 @@
   <ItemGroup>
     <Resource Include="Images\erase.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\xxl-background2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

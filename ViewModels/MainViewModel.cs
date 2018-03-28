@@ -543,7 +543,7 @@ namespace EscapeDBUsage.ViewModels
             }
         }
 
-        private bool areDescsShown = true;
+        private bool areDescsShown = false;
         public bool AreDescsShown
         {
             get
