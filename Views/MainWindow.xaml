@@ -74,6 +74,11 @@
                 <ribbon:RibbonGroupBox Header="Specific (other) Tree Views">
                     <ribbon:Button Header="Create specific tree views..." Height="Auto" Width="Auto" Command="{Binding MainViewModel.Refresh}" Icon="{StaticResource i-refresh}" LargeIcon="{StaticResource i-refresh}"/>
                 </ribbon:RibbonGroupBox>            </ribbon:RibbonTabItem>
+            <ribbon:RibbonTabItem Header="DB Structure">
+                <ribbon:RibbonGroupBox Header="Connect to DB">
+                    <ribbon:Button Header="Connect" Command="{Binding Connect}" LargeIcon="{StaticResource i-connect}"/>
+                </ribbon:RibbonGroupBox>
+            </ribbon:RibbonTabItem>
         </ribbon:Ribbon>
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion" >
         </ContentControl>

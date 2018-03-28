@@ -26,6 +26,7 @@
             <BitmapImage UriSource="/Images/excel.png" x:Key="i-excel" />
             <BitmapImage UriSource="/Images/erase.png" x:Key="i-erase" />
             <BitmapImage UriSource="/Images/refresh.png" x:Key="i-refresh" />
+            <BitmapImage UriSource="/Images/connect.png" x:Key="i-connect" />
             
         </ResourceDictionary>
     </Application.Resources>

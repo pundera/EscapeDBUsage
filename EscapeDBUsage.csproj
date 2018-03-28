@@ -72,6 +72,9 @@
     <Compile Include="Views\AddTablesAndColumnsView.xaml.cs">
       <DependentUpon>AddTablesAndColumnsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConnectView.xaml.cs">
+      <DependentUpon>ConnectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DatabaseSchemaView.xaml.cs">
       <DependentUpon>DatabaseSchemaView.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,10 @@
       <DependentUpon>SprintsView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddTablesAndColumnsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConnectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -303,6 +310,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\xxl-background2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\connect.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
