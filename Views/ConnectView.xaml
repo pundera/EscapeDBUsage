@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EscapeDBUsage.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" Width="380.937">
+             d:DesignHeight="300" Height="300" Width="380">
     <Grid>
         <Image HorizontalAlignment="Left" Height="48" Margin="10,10,0,0" VerticalAlignment="Top" Width="48" Source="/EscapeDBUsage;component/Images/connect.png"/>
         <Label Content="Server Name:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="170"/>
